@@ -49,7 +49,7 @@ public class MainWindows extends JFrame{
 		setLayout(new BorderLayout());
 		
 		opcionesAdministrador = new PanelOpcionesAdministrador(controller);
-		add(opcionesAdministrador,BorderLayout.LINE_START);
+		add(opcionesAdministrador, BorderLayout.LINE_START);
 		
 		JPanel panelAddProduct = new JPanel(new FlowLayout());
 		panelAddProduct.setBackground(Color.decode("#40658A"));
@@ -73,12 +73,14 @@ public class MainWindows extends JFrame{
 		
 		JButton buttonFilter = new JButton("Filter");
 		buttonFilter.setToolTipText("Search product");
+		buttonFilter.setFocusPainted(false);
 		buttonFilter.setBackground(Color.decode("#40658A"));
 		buttonFilter.setForeground(Color.WHITE);
 		buttonFilter.addActionListener(controller);
 		buttonFilter.setActionCommand(Action.BUTTON_FILTER.name());
 		
 		JButton buttonSeeAlls = new JButton("Alls");
+		buttonSeeAlls.setFocusPainted(false);
 		buttonFilter.setToolTipText("Show all products");
 		buttonSeeAlls.setBackground(Color.decode("#5B7729"));
 		buttonSeeAlls.setForeground(Color.WHITE);

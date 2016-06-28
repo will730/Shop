@@ -101,6 +101,7 @@ public class PanelTabla extends JPanel{
 		table.setSelectionBackground(Color.YELLOW);
 		table.setGridColor(Color.GREEN);
 		table.setGridColor(Color.BLACK);
+//		table.setFont(new Font("Times New Roman", 15, 15));
 		panelTable.add(new JScrollPane(table));
 		
 		add(panelTable, BorderLayout.CENTER);

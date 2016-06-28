@@ -25,6 +25,7 @@ public class PanelOpcionesAdministrador extends JPanel {
 			
 			
 			btnProductos = new JButton("Products");
+			btnProductos.setFocusPainted(false);
 			btnProductos.setToolTipText(ToolTipConstants.SEE_LIST_PRODUCTS.toString());
 			btnProductos.addActionListener(controller);
 			btnProductos.setActionCommand(Action.BUTTON_PRODUCTOS.name());
