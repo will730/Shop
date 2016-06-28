@@ -26,7 +26,7 @@ public class DialogBio extends JDialog{
 	private JLabel labelCategory;
 	private JLabel labelDiscont;
 	private JLabel labelName;
-	public static final int TAMAÑO_LETRA = 12;
+	public static final int WORD_SIZE = 12;
 	public static final String TYPE_WORD = "Arial Black";
 	
 
@@ -50,7 +50,7 @@ public class DialogBio extends JDialog{
 			JPanel panelData = new JPanel(new GridLayout(5, 2));
 			
 			JLabel labelMessageName = new JLabel("Name");
-			labelMessageName.setFont(new Font(TYPE_WORD, Font.PLAIN, TAMAÑO_LETRA));
+			labelMessageName.setFont(new Font(TYPE_WORD, Font.PLAIN, WORD_SIZE));
 //			labelMessageName.setHorizontalAlignment(SwingConstants.RIGHT);
 			panelData.add(labelMessageName);
 			

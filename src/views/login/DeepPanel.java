@@ -10,14 +10,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Panelfondo extends JPanel {
+public class DeepPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private ImageIcon imagen;
 	public static final int TAMAGNO_LETRA = 15;
 	public static final String TYPE_WORD = "Arial Black";
 
-	public Panelfondo(Controller controller) {
+	public DeepPanel(Controller controller) {
 		imagen = new ImageIcon(getClass().getResource("/img/fff.png"));
 
 		setLayout(null);

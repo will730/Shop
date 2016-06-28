@@ -16,7 +16,7 @@ public class DialogUserOrAdmin extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static final int TAMANO_LETRA = 15;
 	public static final String TYPE_WORD = "Arial Black";
-	private Panelfondo ventanaLogin;
+	private DeepPanel ventanaLogin;
 	
 	public DialogUserOrAdmin(Controller controller) {
 //		super(frame);
@@ -31,7 +31,7 @@ public class DialogUserOrAdmin extends JFrame {
 		UIManager.put("OptionPane.background",Color.decode("#58ACFA"));
 		UIManager.put("Panel.background",Color.decode("#58ACFA"));
 		
-		ventanaLogin = new Panelfondo(controller);
+		ventanaLogin = new DeepPanel(controller);
 		add(ventanaLogin);
 	}
 	
