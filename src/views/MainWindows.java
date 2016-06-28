@@ -56,9 +56,13 @@ public class MainWindows extends JFrame{
 		JButton buttonAddProduct = new JButton("Add Product");
 		buttonAddProduct.setBackground(Color.decode("#5B7729"));
 		buttonAddProduct.setForeground(Color.WHITE);
+//		buttonAddProduct.setOpaque(false);
+	//	buttonAddProduct.setBorderPainted(false);
 		buttonAddProduct.setToolTipText(ToolTipConstants.ADD_NEW_PRODUCT.toString());
 		buttonAddProduct.addActionListener(controller);
 		buttonAddProduct.setActionCommand(Action.BUTTON_ADD_PRODUCT.name());
+		buttonAddProduct.setFocusPainted(false);
+		//buttonAddProduct.setContentAreaFilled(false);
 		
 		textFiledSearchByName = new JTextField();
 		

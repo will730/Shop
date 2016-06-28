@@ -29,7 +29,6 @@ import views.DialogBio;
 import views.DialogCreateProduct;
 import views.DialogDescriptionProduct;
 import views.DialogFileChooser;
-import views.DialogOptionUserOrAdmin;
 import views.DialogSettings;
 import views.MainWindows;
 import views.PanelTabla;
@@ -46,6 +45,9 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 	private DialogDescriptionProduct dialogDescriptionProduct;
 	private Shop shop;
 	private ActionFileChooser actionFileChooser;
+	
+	
+	
 
 	public Controller() {
 		mainWindows = new MainWindows(this);
@@ -60,6 +62,7 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 		MAX_NUMBER_PAGES = 1;
 		dataInit();
 		dialogUserOrAdmin.setVisible(true);
+	
 	}
 
 	private void dataInit() {

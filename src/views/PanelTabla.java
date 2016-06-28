@@ -72,6 +72,12 @@ public class PanelTabla extends JPanel{
 
 	public PanelTabla(Controller controller) {
 		this.controller = controller;
+		setBackground(Color.decode("#63DFE3"));
+//		
+/////////////////////////7
+//		setOpaque(false);
+///////////////7
+		
 		setLayout(new BorderLayout());
 		menuBar = new JMenuBar();
 		menuBar.setBackground(Color.decode("#40658A"));
@@ -94,7 +100,7 @@ public class PanelTabla extends JPanel{
 		table.getTableHeader().setReorderingAllowed(false) ;
 		table.setSelectionBackground(Color.YELLOW);
 		table.setGridColor(Color.GREEN);
-//		panelTable.setBackground(Color.BLUE);
+		table.setGridColor(Color.BLACK);
 		panelTable.add(new JScrollPane(table));
 		
 		add(panelTable, BorderLayout.CENTER);
@@ -114,12 +120,15 @@ public class PanelTabla extends JPanel{
 		buttonRemoveProduct = new JButton("Remove");
 		buttonRemoveProduct.setToolTipText("Delete this product");
 		buttonRemoveProduct.addActionListener(controller);
+		buttonRemoveProduct.setBackground(Color.RED);		
 		buttonEditProduct = new JButton("Edit");
-		buttonRemoveProduct.setToolTipText("Edit this product");
+		buttonEditProduct.setToolTipText("Edit this product");
 		buttonEditProduct.addActionListener(controller);
+		buttonEditProduct.setBackground(Color.GREEN);
 		buttonBioProduct = new JButton("Bio");
-		buttonRemoveProduct.setToolTipText("Show Bio of this product");
+		buttonBioProduct.setToolTipText("Show Bio of this product");
 		buttonBioProduct.addActionListener(controller);
+		buttonBioProduct.setBackground(Color.BLUE);
 //		table.setBackground(new Color(80, 250, 22, 50));
 	}
 
@@ -179,6 +188,7 @@ public class PanelTabla extends JPanel{
 		buttonLastNext.setBackground(Color.decode("#40658A"));
 		buttonLastNext.setForeground(Color.WHITE);
 		buttonLastNext.setToolTipText("go to last page");
+		panelControl.setOpaque(false);
 		assignCommandsButtons();
 		add(panelControl, BorderLayout.PAGE_END);
 	}

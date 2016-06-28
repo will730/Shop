@@ -31,7 +31,12 @@ public class Panelfondo extends JPanel {
 		btnUser.setBounds(200, 200, 350, 300);
 		btnUser.addActionListener(controller);
 		btnUser.setActionCommand(Action.BUTTON_OPEN_DIALOG_ADMIN.name());
+		btnUser.setFocusPainted(false);
+		btnUser.setContentAreaFilled(false);
 		add(btnUser);
+		
+		btnUser.setFocusPainted(false);
+		btnUser.setContentAreaFilled(false);
 
 		JButton btnVisitante = new JButton();
 		btnVisitante.setOpaque(false);
@@ -39,6 +44,8 @@ public class Panelfondo extends JPanel {
 		btnVisitante.setBorderPainted(false);
 		btnVisitante.addActionListener(controller);
 		btnVisitante.setActionCommand(Action.BUTTON_OPEN_DIALOG_CUSTOMER.name());
+		btnVisitante.setFocusPainted(false);
+		btnVisitante.setContentAreaFilled(false);
 		add(btnVisitante);
 
 //		setVisible(true);

@@ -19,6 +19,7 @@ public class MenuBar extends JMenuBar{
 		
 		JMenu jmenuActions = new JMenu("Admin");
 		
+		
 		JMenuItem itemAddProduct = new JMenuItem("Settings");
 		itemAddProduct.addActionListener(controller);
 		itemAddProduct.setActionCommand(Action.SHOW_DIALOG_SETTINGS.name());

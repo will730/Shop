@@ -2,6 +2,7 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
@@ -25,6 +26,9 @@ public class DialogBio extends JDialog{
 	private JLabel labelCategory;
 	private JLabel labelDiscont;
 	private JLabel labelName;
+	public static final int TAMAÑO_LETRA = 12;
+	public static final String TYPE_WORD = "Arial Black";
+	
 
 	public DialogBio(Controller controller, JFrame jFrame) {
 			super(jFrame);
@@ -46,6 +50,7 @@ public class DialogBio extends JDialog{
 			JPanel panelData = new JPanel(new GridLayout(5, 2));
 			
 			JLabel labelMessageName = new JLabel("Name");
+			labelMessageName.setFont(new Font(TYPE_WORD, Font.PLAIN, TAMAÑO_LETRA));
 //			labelMessageName.setHorizontalAlignment(SwingConstants.RIGHT);
 			panelData.add(labelMessageName);
 			

@@ -20,13 +20,19 @@ public class PanelOpcionesAdministrador extends JPanel {
 	public PanelOpcionesAdministrador(Controller controller) {
 			setBackground(Color.decode("#40658A"));
 			
+			
+			
+			
+			
 			btnProductos = new JButton("Products");
 			btnProductos.setToolTipText(ToolTipConstants.SEE_LIST_PRODUCTS.toString());
 			btnProductos.addActionListener(controller);
 			btnProductos.setActionCommand(Action.BUTTON_PRODUCTOS.name());
 			btnProductos.setBackground(colorBackground);
 			btnProductos.setForeground(colorForeground);
-			btnProductos.setBorder(BorderFactory.createLineBorder(colorBackground));
+			btnProductos.setOpaque(false);
+			btnProductos.setBorderPainted(false);
+			//btnProductos.setBorder(BorderFactory.createLineBorder(colorBackground));
 			add(btnProductos);
 	}
 
