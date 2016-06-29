@@ -12,6 +12,8 @@ import controller.Controller;
 
 public class DialogOptionUserOrAdmin extends JDialog{
 
+	private static final long serialVersionUID = 1L;
+
 	public DialogOptionUserOrAdmin(Controller controller, JFrame frame) {
 		super(frame);
 		setModal(true);

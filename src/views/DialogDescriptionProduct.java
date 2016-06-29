@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.Point;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -14,12 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import controller.Action;
 import controller.Controller;
 
 public class DialogDescriptionProduct extends JDialog{
-	
+
+	private static final long serialVersionUID = 1L;
 	private JTextField textFieldBrand;
 	private JTextField textFieldModel;
 	private JTextField textFieldMonthsWarranty;

@@ -1,7 +1,5 @@
 package controller;
 
-import java.awt.Checkbox;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -12,14 +10,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 import javax.swing.JTable;
-
 import persistence.ManagerPersistence;
 import Exceptions.IdProductInexistExeption;
 import models.dao.Category;
@@ -31,7 +25,6 @@ import views.DialogDescriptionProduct;
 import views.DialogFileChooser;
 import views.DialogSettings;
 import views.MainWindows;
-import views.PanelTabla;
 import views.login.DialogUserOrAdmin;
 
 public class Controller implements ActionListener, MouseListener, KeyListener {
