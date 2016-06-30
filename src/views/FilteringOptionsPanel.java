@@ -13,8 +13,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import com.sun.javafx.tk.Toolkit;
-
 import controller.Action;
 import controller.Controller;
 import models.dao.Category;
