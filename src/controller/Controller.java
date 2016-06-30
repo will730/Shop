@@ -402,6 +402,11 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 		} catch (IdProductInexistExeption e) {
 			JOptionPane.showMessageDialog(mainWindows, "Error the integer the product, please try again");
 		}
+		try {
+			shop.setListProducts(ManagerPersistence.readProductsOfJson(new File(ManagerPersistence.PATH_NAME)));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	private void actionButtonRemove(int id) {
@@ -423,6 +428,11 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 			}
 			mainWindows.setFormatPages(MAX_NUMBER_PAGES);
 		}
+		try {
+			shop.setListProducts(ManagerPersistence.readProductsOfJson(new File(ManagerPersistence.PATH_NAME)));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	private void actionButtonSave() {
@@ -442,7 +452,12 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 		numberMaxPages(shop.getListProducts());
 		option = 0;
 		mainWindows.setFormatPages(MAX_NUMBER_PAGES);
-//		dialogCreateProduct.clearnText();
+		dialogCreateProduct.clearnText();
+		try {
+			shop.setListProducts(ManagerPersistence.readProductsOfJson(new File(ManagerPersistence.PATH_NAME)));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	@Override
@@ -470,6 +485,11 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 				actionButtonEdit(id);
 				break;
 			case BUTTON_BIO_PRODUCT:
+				try {
+					shop.setListProducts(ManagerPersistence.readProductsOfJson(new File(ManagerPersistence.PATH_NAME)));
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 				dialogBio.assignProduct(shop.findProductForId(id));
 				break;
 			default:

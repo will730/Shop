@@ -95,8 +95,10 @@ public class DialogBio extends JDialog{
 	}
 	
 	public void assignProduct(Product product) {
+		System.out.println("size " + product.getListImages().size());
 		if (product.getListImages() != null && product.getListImages().size() != 0) {
 			labelImage.setIcon(new ImageIcon(product.getListImages().get(0)));
+			labelImage.setText("");
 		}else {
 			labelImage.setIcon(null);
 			labelImage.setText("Not Image");

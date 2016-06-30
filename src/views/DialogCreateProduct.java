@@ -64,8 +64,8 @@ public class DialogCreateProduct extends JDialog{
 		new FileDrop(labelImage, new Listener() {
 			@Override
 			public void filesDropped(File[] files) {
+				listImages.clear();
 				for (int i = 0; i < files.length; i++) {
-					listImages.clear();
 					listImages.add(files[i].getAbsolutePath());
 				}
 				labelImage.setText("");
@@ -179,11 +179,11 @@ public class DialogCreateProduct extends JDialog{
 	}
 	
 	public void clearnText() {
-		textFieldId.setText("");
-		textFieldName.setText("");
-		spinnerPrice.setValue(50);
-		spinnerQuantumAvalilable.setValue(1);
-		spinnerDiscont.setValue(0.0);
+//		textFieldId.setText("");
+//		textFieldName.setText("");
+//		spinnerPrice.setValue(50);
+//		spinnerQuantumAvalilable.setValue(1);
+//		spinnerDiscont.setValue(0.0);
 		labelImage.setIcon(null);
 		labelImage.setText("Drag Image(s)");
 		listImages.clear();
