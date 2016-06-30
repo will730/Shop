@@ -21,9 +21,11 @@ public class PanelShowProducts extends JPanel {
 		setBackground(Color.white);
 	}
 	
+	
 	public void addJbuttons(ArrayList<Product> listProducts,Controller controller) {
-		removeAll();
+		this.removeAll();
 		for (Product product : listProducts) {
+			
 			JButton btnProduct = new JButton(product.getName());
 			btnProduct.setBackground(Color.white);
 			btnProduct.setName(""+ product.getId() + product.getPrice());
@@ -35,6 +37,6 @@ public class PanelShowProducts extends JPanel {
 			}
 			add(btnProduct);
 		}
-		 validate();
+		repaint();
 	}
 }

@@ -87,6 +87,7 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		ArrayList<Product> listProducts;
 		switch (Action.valueOf(e.getActionCommand())) {
 		case BUTTON_OPEN_DIALOG_ADMIN:
 			dialogUserOrAdmin.setVisible(false);
@@ -174,6 +175,57 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 		case CLOSE_DIALOG_BIO_PRODUCT:
 			dialogBio.setVisible(false);
 			break;
+		case BUTTON_BIO_PRODUCT:
+			break;
+		case BUTTON_EDIT_PRODUCT:
+			break;
+		case BUTTON_PRODUCTOS:
+			break;
+		case BUTTON_REMOVE_PRODUCT:
+			break;
+		case BUTTON_SHOW_PRODUCTS_AUTOMOVILE:
+			listProducts = shop.searchProductForCategory(Category.AUTOMOTIVE);
+			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			break;
+		case BUTTON_SHOW_PRODUCTS_BOOKS:
+			listProducts = shop.searchProductForCategory(Category.BOOKS);
+			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			break;
+		case BUTTON_SHOW_PRODUCTS_ENTERTAINMENT:
+			listProducts = shop.searchProductForCategory(Category.ENTERTAINMENT);
+			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			break;
+		case BUTTON_SHOW_PRODUCTS_HOME:
+			listProducts = shop.searchProductForCategory(Category.HOME);
+			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			break;
+		case BUTTON_SHOW_PRODUCTS_SPORTS:
+			listProducts = shop.searchProductForCategory(Category.SPORTS);
+			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			break;
+		case BUTTON_SHOW_PRODUCTS_SUPERMARKET:
+			listProducts = shop.searchProductForCategory(Category.SUPERMARKET);
+			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			break;
+		case BUTTON_SHOW_PRODUCTS_TECHNOLOGY:
+			listProducts = shop.searchProductForCategory(Category.TECHNOLOGY);
+			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			mainWindowUser.revalidate();
+			break;
+		case BUTTON_SHOW_PRODUCTS_TOYS:
+			listProducts = shop.searchProductForCategory(Category.TOYS);
+			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			break;
+		case BUTTON__SHOW_PRODUCTS_CLOTHES_AND_ACCESSORIES:
+			listProducts = shop.searchProductForCategory(Category.CLOTHES_AND_ACCESSORIES);
+			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			mainWindowUser.revalidate();
+			break;
+		case SHOW_DIALOG_CREATE:
+			
+			break;
+		default:
+			break;
 		}
 	}
 	
@@ -196,6 +248,21 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 	}
 
 	private void actionButtonFilter() {
+		if (mainWindows.isVisible()) {
+			filterMainWindow();
+		}else if(mainWindowUser.isVisible()){
+			filterMainWindowUser();
+		}
+		
+	}
+	
+	private void filterMainWindowUser(){
+		ArrayList<Product> listProducts = shop.getListProductsForFilter(mainWindowUser.getFilteringOptions().getTextFiledSearchByName(),mainWindowUser.getFilteringOptions().getSpinnerSearchByPriceMin(),mainWindowUser.getFilteringOptions().getSpinneSearchByPriceMax(), mainWindowUser.getFilteringOptions().getComboBoxSearchByCategory());
+		mainWindowUser.getPanelShowProducts().addJbuttons(listProducts, this);
+		mainWindowUser.revalidate();
+	}
+	
+	private void filterMainWindow(){
 		mainWindows.setNumberPageCurrent(1, MAX_NUMBER_PAGES);
 		mainWindows.disableButtonsControlBack();
 		ArrayList<Product> listProducts = shop.getListProductsForFilter(mainWindows.getTextFiledSearchByName(), mainWindows.getSpinnerSearchByPriceMin(), mainWindows.getSpinneSearchByPriceMax(), mainWindows.getComboBoxSearchByCategory());

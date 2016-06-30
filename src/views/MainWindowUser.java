@@ -32,4 +32,8 @@ public class MainWindowUser extends JFrame {
 	public PanelShowProducts getPanelShowProducts() {
 		return panelCenterUser.getPanelShowProducts();
 	}
+	
+	public FilteringOptionsPanel getFilteringOptions() {
+		return panelCenterUser.getFilteringOptionsPanel();
+	}
 }

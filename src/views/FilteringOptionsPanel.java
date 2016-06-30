@@ -68,4 +68,19 @@ public class FilteringOptionsPanel extends JPanel {
 		
 	}
 
+	public String getTextFiledSearchByName() {
+		return textFiledSearchByName.getText();
+	}
+
+	public Category getComboBoxSearchByCategory() {
+		return (Category) comboBoxSearchByCategory.getSelectedItem();
+	}
+	
+	public double getSpinnerSearchByPriceMin() {
+		return (double)spinnerSearchByPriceMin.getValue();
+	}
+	
+	public double getSpinneSearchByPriceMax() {
+		return (double)spinneSearchByPriceMax.getValue();
+	}
 }
