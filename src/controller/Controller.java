@@ -24,12 +24,14 @@ import views.DialogCreateProduct;
 import views.DialogDescriptionProduct;
 import views.DialogFileChooser;
 import views.DialogSettings;
+import views.MainWindowUser;
 import views.MainWindows;
 import views.login.DialogUserOrAdmin;
 
 public class Controller implements ActionListener, MouseListener, KeyListener {
 
 	private MainWindows mainWindows;
+	private MainWindowUser mainWindowUser;
 	private DialogCreateProduct dialogCreateProduct;
 	private DialogSettings dialogSettings;
 	private DialogFileChooser dialogFileChooser;
@@ -44,6 +46,7 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 
 	public Controller() {
 		mainWindows = new MainWindows(this);
+		mainWindowUser = new MainWindowUser(this) ;
 //		dialogOptionUserOrAdmin = new DialogOptionUserOrAdmin(this, mainWindows);
 		dialogUserOrAdmin = new DialogUserOrAdmin(this);
 		dialogCreateProduct = new DialogCreateProduct(this, mainWindows);
@@ -63,6 +66,7 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 			ArrayList<Product> listProducts = ManagerPersistence.readProductsOfJson(new File(ManagerPersistence.PATH_NAME));
 			shop.setListProducts(listProducts);
 			mainWindows.updateTable(ManagerPersistence.readProductsOfJsonForPage(new File(ManagerPersistence.PATH_NAME), mainWindows.getNumberPageCurrent()));
+			mainWindowUser.getPanelShowProducts().addJbuttons(shop.getListProducts(),this);
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(mainWindows, "Not exist File whit data");
 		}
@@ -89,7 +93,7 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 			mainWindows.setVisible(true);
 			break;
 		case BUTTON_OPEN_DIALOG_CUSTOMER:
-			
+			mainWindowUser.setVisible(true);
 			break;
 		case OPEN_DIALOG_DESCRIPTION_PRODUCT:
 			dialogDescriptionProduct.setVisible(true);

@@ -1,31 +1,16 @@
 package views;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
 
-import controller.Action;
 import controller.Controller;
-import models.dao.Category;
 
 public class MainWindowUser extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private PanelCategoriesUser categoriesUser;
-	private PanelShowProducts panelShowProducts;
-	private FilteringOptionsPanel filteringOptionsPanel;
 	private PanelCenterUser panelCenterUser;
 
 	public MainWindowUser(Controller controller) {
