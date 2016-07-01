@@ -12,7 +12,10 @@ import java.util.Properties;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import models.dao.Category;
+import models.dao.DescriptionProduct;
 import models.dao.Shop;
 import models.entity.Product;
 
@@ -64,7 +67,9 @@ public class ManagerPersistence {
 			for (JsonElement images : jsonElement.getAsJsonObject().get("listImages").getAsJsonArray()) {
 				listImagesProduct.add(images.getAsString());
 			}
-			listProducts.add(Shop.createProduct(jsonElement.getAsJsonObject().get("id").getAsInt(), jsonElement.getAsJsonObject().get("name").getAsString(), jsonElement.getAsJsonObject().get("price").getAsDouble(), null, jsonElement.getAsJsonObject().get("quantumAvailable").getAsInt(), Category.valueOf(jsonElement.getAsJsonObject().get("category").getAsString()), jsonElement.getAsJsonObject().get("discont").getAsDouble(), listImagesProduct));
+			JsonObject modeloJson= jsonElement.getAsJsonObject().get("description").getAsJsonObject(); 
+			DescriptionProduct descriptionProduct = new DescriptionProduct(modeloJson.get("brand").getAsString(), modeloJson.get("model").getAsString(), modeloJson.get("monthsWarranty").getAsByte(),null, modeloJson.get("yearOfCreation").getAsInt() );
+			listProducts.add(Shop.createProduct(jsonElement.getAsJsonObject().get("id").getAsInt(), jsonElement.getAsJsonObject().get("name").getAsString(), jsonElement.getAsJsonObject().get("price").getAsDouble(), descriptionProduct, jsonElement.getAsJsonObject().get("quantumAvailable").getAsInt(), Category.valueOf(jsonElement.getAsJsonObject().get("category").getAsString()), jsonElement.getAsJsonObject().get("discont").getAsDouble(), listImagesProduct));
 		}
 		return listProducts;
 	}

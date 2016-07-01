@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import controller.Action;
 import controller.Controller;
+import models.dao.DescriptionProduct;
 
 public class DialogDescriptionProduct extends JDialog{
 
@@ -24,6 +25,7 @@ public class DialogDescriptionProduct extends JDialog{
 	private Component textFieldSize;
 	private JTextField textFieldYearOfCreation;
 	private JTextArea textAreaError;
+	
 
 	public DialogDescriptionProduct(Controller controller, JFrame jFrame) {
 		super(jFrame);
@@ -97,6 +99,10 @@ public class DialogDescriptionProduct extends JDialog{
 		textAreaError.setText(e);
 		textAreaError.setForeground(Color.RED);
 		revalidate();
+	}
+	
+	public DescriptionProduct getDescriptionProduct() {
+		return new DescriptionProduct(textFieldBrand.getText(), textFieldModel.getText(),Byte.parseByte(textFieldMonthsWarranty.getText()), null, Integer.parseInt(textFieldYearOfCreation.getText()));
 	}
 
 }

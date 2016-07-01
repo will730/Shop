@@ -1,12 +1,9 @@
 package views;
 
-import java.awt.Color;
-
 import javax.swing.Box;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
 import controller.Action;
 import controller.Controller;
 
@@ -17,8 +14,7 @@ public class MenuBar extends JMenuBar{
 	public MenuBar(Controller controller) {
 		add(Box.createHorizontalGlue());
 		
-		JMenu jmenuActions = new JMenu("Admin");
-		
+		JMenu jmenuActions = new JMenu("Admin");		
 		
 		JMenuItem itemAddProduct = new JMenuItem("Settings");
 		itemAddProduct.addActionListener(controller);

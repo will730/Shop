@@ -103,7 +103,9 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 			dialogDescriptionProduct.setVisible(false);
 			break;
 		case BUTTON_SAVE_DESCRIPTION:
-			
+			dialogDescriptionProduct.setVisible(false);
+			dialogCreateProduct.agregarDescripcion(dialogDescriptionProduct.getDescriptionProduct());
+			dialogCreateProduct.setVisible(true);			
 			break;
 		case BUTTON_ADD_PRODUCT:
 			dialogCreateProduct.setVisible(true);

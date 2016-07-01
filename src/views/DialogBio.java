@@ -10,6 +10,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import models.entity.Product;
 import controller.Action;
@@ -24,9 +26,9 @@ public class DialogBio extends JDialog{
 	private JLabel labelCategory;
 	private JLabel labelDiscont;
 	private JLabel labelName;
+	private JTextArea jTextAreaDescription;
 	public static final int WORD_SIZE = 12;
-	public static final String TYPE_WORD = "Arial Black";
-	
+	public static final String TYPE_WORD = "Arial Black";	
 
 	public DialogBio(Controller controller, JFrame jFrame) {
 			super(jFrame);
@@ -41,11 +43,12 @@ public class DialogBio extends JDialog{
 			panelImage.add(labelMessageImage);
 			
 			labelImage = new JLabel("Image", SwingConstants.CENTER);
+			labelImage.setToolTipText("hola </br> mundo");
 			labelImage.setHorizontalAlignment(SwingConstants.CENTER);
 			panelImage.add(labelImage);
 			add(panelImage, BorderLayout.PAGE_START);
 			
-			JPanel panelData = new JPanel(new GridLayout(5, 2));
+			JPanel panelData = new JPanel(new GridLayout(6, 2));
 			
 			JLabel labelMessageName = new JLabel("Name");
 			labelMessageName.setFont(new Font(TYPE_WORD, Font.PLAIN, WORD_SIZE));
@@ -81,7 +84,18 @@ public class DialogBio extends JDialog{
 			panelData.add(labelMessageDiscont);
 			
 			labelDiscont = new JLabel("");
-			panelData.add(labelDiscont);
+			panelData.add(labelDiscont);			
+			
+			JLabel description = new JLabel("Description");
+			panelData.add(description);
+			
+			
+			jTextAreaDescription = new JTextArea();
+			jTextAreaDescription.setEditable(false);
+			jTextAreaDescription.setBackground(Color.decode("#58ACFA"));
+			JScrollPane jScrollPane = new JScrollPane(jTextAreaDescription);
+			jScrollPane.setBorder(null);
+			panelData.add(jScrollPane);
 			
 			JButton buttonClose = new JButton("Close");
 			buttonClose.setBackground(Color.decode("#40658A"));
@@ -108,6 +122,7 @@ public class DialogBio extends JDialog{
 		labelQuantumAvailable.setText(String.valueOf(product.getQuantumAvailable()));
 		labelCategory.setText(product.getCategory().toString());
 		labelDiscont.setText(String.valueOf(product.getDiscont()));
+		jTextAreaDescription.setText(product.getDescription().toString());
 		setVisible(true);
 	}
 

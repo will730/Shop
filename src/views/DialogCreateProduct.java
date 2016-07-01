@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 import net.iharder.dnd.FileDrop;
 import net.iharder.dnd.FileDrop.Listener;
 import models.dao.Category;
+import models.dao.DescriptionProduct;
 import models.dao.Shop;
 import models.entity.Product;
 import controller.Action;
@@ -42,6 +43,7 @@ public class DialogCreateProduct extends JDialog{
 	private JDialog dialogChooseFiles = new JDialog();
 	private ArrayList<String> listImages = new ArrayList<>();
 	private JLabel labelImage;
+	private DescriptionProduct descripcionFinal;
 
 	public DialogCreateProduct(Controller controller, JFrame jFrame) {
 		super(jFrame);
@@ -175,7 +177,11 @@ public class DialogCreateProduct extends JDialog{
 	}
 	
 	public Product getProduct() {
-		return Shop.createProduct(Integer.parseInt(textFieldId.getText()), textFieldName.getText(), (double)spinnerPrice.getValue(), null, (int)spinnerQuantumAvalilable.getValue(), (Category)comboBoxCategory.getSelectedItem(), (double)spinnerDiscont.getValue(), listImages);
+		return Shop.createProduct(Integer.parseInt(textFieldId.getText()), textFieldName.getText(), (double)spinnerPrice.getValue(), descripcionFinal, (int)spinnerQuantumAvalilable.getValue(), (Category)comboBoxCategory.getSelectedItem(), (double)spinnerDiscont.getValue(), listImages);
+	}
+	
+	public void agregarDescripcion(DescriptionProduct descripcion){
+		descripcionFinal = descripcion;
 	}
 	
 	public void clearnText() {

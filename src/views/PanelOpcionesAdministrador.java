@@ -1,11 +1,8 @@
 package views;
 
 import java.awt.Color;
-
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 import models.dao.ToolTipConstants;
 import controller.Action;
 import controller.Controller;
@@ -16,25 +13,20 @@ public class PanelOpcionesAdministrador extends JPanel {
 	private Color colorForeground = Color.white;
 	private Color colorBackground = Color.black;
 	private JButton btnProductos;
-	
+
 	public PanelOpcionesAdministrador(Controller controller) {
-			setBackground(Color.decode("#40658A"));
-			
-			
-			
-			
-			
-			btnProductos = new JButton("Products");
-			btnProductos.setFocusPainted(false);
-			btnProductos.setToolTipText(ToolTipConstants.SEE_LIST_PRODUCTS.toString());
-			btnProductos.addActionListener(controller);
-			btnProductos.setActionCommand(Action.BUTTON_PRODUCTOS.name());
-			btnProductos.setBackground(colorBackground);
-			btnProductos.setForeground(colorForeground);
-			btnProductos.setOpaque(false);
-			btnProductos.setBorderPainted(false);
-			//btnProductos.setBorder(BorderFactory.createLineBorder(colorBackground));
-			add(btnProductos);
+		setBackground(Color.decode("#40658A"));
+
+		btnProductos = new JButton("Products");
+		btnProductos.setFocusPainted(false);
+		btnProductos.setToolTipText(ToolTipConstants.SEE_LIST_PRODUCTS.toString());
+		btnProductos.addActionListener(controller);
+		btnProductos.setActionCommand(Action.BUTTON_PRODUCTOS.name());
+		btnProductos.setBackground(colorBackground);
+		btnProductos.setForeground(colorForeground);
+		btnProductos.setOpaque(false);
+		btnProductos.setBorderPainted(false);
+		add(btnProductos);
 	}
 
 }
