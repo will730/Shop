@@ -21,21 +21,19 @@ public class PanelShowProducts extends JPanel {
 		setBackground(Color.white);
 	}
 	
-	
-	public void addJbuttons(ArrayList<Product> listProducts,Controller controller) {
+	public void addJbuttons(ArrayList<Product> listProducts, Controller controller) {
 		this.removeAll();
 		for (Product product : listProducts) {
-			
-			JButton btnProduct = new JButton(product.getName());
-			btnProduct.setBackground(Color.white);
-			btnProduct.setName(""+ product.getId() + product.getPrice());
-			btnProduct.setBorder(BorderFactory.createTitledBorder(product.getName() + product.getPrice()));
+			JButton botonProduct = new JButton(product.getName());
+			botonProduct.setBackground(Color.white);
+			botonProduct.setName(""+ product.getId() + product.getPrice());
+			botonProduct.setBorder(BorderFactory.createTitledBorder(product.getName() + product.getPrice()));
 			if(!product.getListImages().isEmpty()){
-			btnProduct.setIcon(new ImageIcon(product.getListImages().get(0)));
+				botonProduct.setIcon(new ImageIcon(product.getListImages().get(0)));
 			}else{
-				btnProduct.setIcon(new ImageIcon(getClass().getResource("/img/noImage.png")));
+				botonProduct.setIcon(new ImageIcon(getClass().getResource("/img/noImage.png")));
 			}
-			add(btnProduct);
+			add(botonProduct);
 		}
 		repaint();
 	}

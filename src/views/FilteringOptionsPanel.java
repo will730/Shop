@@ -3,6 +3,7 @@ package views;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -10,7 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+
 import controller.Action;
+import controller.Constants;
 import controller.Controller;
 import models.dao.Category;
 
@@ -21,14 +24,13 @@ public class FilteringOptionsPanel extends JPanel {
 	private JSpinner spinnerSearchByPriceMin;
 	private JSpinner spinneSearchByPriceMax;
 	private JComboBox<Category> comboBoxSearchByCategory;
-	private static final int width = (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 
 	public FilteringOptionsPanel(Controller controller) {
 		setLayout(new GridLayout(1, 2));
-		setPreferredSize(new Dimension(width / 7, 1000));
+		setPreferredSize(new Dimension(Constants.SIZE_OF_TOOLKIT_WIDTH / 7, 1000));
 
 		JPanel panelFilter = new JPanel(new GridLayout(9, 1));
-		panelFilter.setBackground(Color.decode("#40658A"));
+		panelFilter.setBackground(Constants.COLOR_BLUE_GENERAL);
 
 		JLabel name = new JLabel("Filter: Name:");
 		name.setForeground(Color.WHITE);
@@ -41,10 +43,10 @@ public class FilteringOptionsPanel extends JPanel {
 		price.setForeground(Color.WHITE);
 		panelFilter.add(price);
 
-		spinnerSearchByPriceMin = new JSpinner(new SpinnerNumberModel(50.0, 50.0, Double.MAX_VALUE, 50.0));
+		spinnerSearchByPriceMin = new JSpinner(new SpinnerNumberModel(Constants.INIT_VALUE_PRICE_PRODUCT_USER, 50.0, Double.MAX_VALUE, Constants.INIT_VALUE_SKIP_PRICE_PRODUCT_USER));
 		panelFilter.add(spinnerSearchByPriceMin);
 
-		spinneSearchByPriceMax = new JSpinner(new SpinnerNumberModel(5000.0, 50.0, Double.MAX_VALUE, 50.0));
+		spinneSearchByPriceMax = new JSpinner(new SpinnerNumberModel(Constants.INIT_VALUE_MAX_PRICE_PRODUCT_FILTER_USER, 50.0, Double.MAX_VALUE, Constants.INIT_VALUE_MAX_PRICE_SKIP_PRODUCT_FILTER_USER));
 		panelFilter.add(spinneSearchByPriceMax);
 
 		JLabel category = new JLabel("Category:");
@@ -63,7 +65,6 @@ public class FilteringOptionsPanel extends JPanel {
 		panelFilter.add(buttonFilter);
 
 		add(panelFilter);
-
 	}
 
 	public String getTextFiledSearchByName() {

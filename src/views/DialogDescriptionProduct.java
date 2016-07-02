@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -12,7 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 import controller.Action;
+import controller.Constants;
 import controller.Controller;
 import models.dao.DescriptionProduct;
 
@@ -36,6 +39,7 @@ public class DialogDescriptionProduct extends JDialog{
 		setLayout(new BorderLayout());
 		
 		JPanel panelData = new JPanel(new GridLayout(6, 1));
+		
 		JLabel labelBrand = new JLabel("Brand");
 		labelBrand.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelData.add(labelBrand);
@@ -72,14 +76,14 @@ public class DialogDescriptionProduct extends JDialog{
 		panelData.add(textFieldYearOfCreation);
 		
 		JButton buttonClose = new JButton("Close");
-		buttonClose.setBackground(Color.decode("#40658A"));
+		buttonClose.setBackground(Constants.COLOR_BLUE_GENERAL);
 		buttonClose.setForeground(Color.WHITE);
 		buttonClose.addActionListener(controller);
 		buttonClose.setActionCommand(Action.CLOSE_DIALOG_DESCRIPTION_PRODUCT.name());
 		panelData.add(buttonClose);
 		
 		JButton buttonSave = new JButton("Save");
-		buttonSave.setBackground(Color.decode("#5B7729"));
+		buttonSave.setBackground(Constants.COLOR_GREEN_GENERAL);
 		buttonSave.setForeground(Color.WHITE);
 		buttonSave.addActionListener(controller);
 		buttonSave.setActionCommand(Action.BUTTON_SAVE_DESCRIPTION.name());
@@ -88,10 +92,10 @@ public class DialogDescriptionProduct extends JDialog{
 		textAreaError = new JTextArea();
 		panelData.add(textAreaError);
 		
-		add(panelData, BorderLayout.CENTER);
-		
 		JPanel panelError = new JPanel();
 		panelError.add(textAreaError);
+		
+		add(panelData, BorderLayout.CENTER);
 		add(panelError, BorderLayout.PAGE_END);
 	}
 	

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.Action;
+import controller.Constants;
 import controller.Controller;
 
 public class DialogFileChooser extends JDialog{
@@ -42,11 +43,11 @@ public class DialogFileChooser extends JDialog{
 		JButton buttonCancel = new JButton("Cancel");
 		buttonCancel.setActionCommand(Action.CANCEL_PATH.name());
 		buttonCancel.addActionListener(controller);
-		buttonCancel.setBackground(Color.decode("#40658A"));
+		buttonCancel.setBackground(Constants.COLOR_BLUE_GENERAL);
 		buttonCancel.setForeground(Color.WHITE);
 		panelSouth.add(buttonCancel);
 		
-		panelSouth.setBackground(Color.decode("#5B7729"));
+		panelSouth.setBackground(Constants.COLOR_GREEN_GENERAL);
 		add(panelSouth, BorderLayout.PAGE_END);
 	}
 	

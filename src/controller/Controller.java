@@ -41,13 +41,9 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 	private Shop shop;
 	private ActionFileChooser actionFileChooser;
 	
-	
-	
-
 	public Controller() {
 		mainWindows = new MainWindows(this);
 		mainWindowUser = new MainWindowUser(this) ;
-//		dialogOptionUserOrAdmin = new DialogOptionUserOrAdmin(this, mainWindows);
 		dialogUserOrAdmin = new DialogUserOrAdmin(this);
 		dialogCreateProduct = new DialogCreateProduct(this, mainWindows);
 		dialogSettings = new DialogSettings(this, mainWindows);
@@ -58,21 +54,21 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 		MAX_NUMBER_PAGES = 1;
 		dataInit();
 		dialogUserOrAdmin.setVisible(true);
-	
 	}
 
 	private void dataInit() {
 		try {
 			ArrayList<Product> listProducts = ManagerPersistence.readProductsOfJson(new File(ManagerPersistence.PATH_NAME));
 			shop.setListProducts(listProducts);
-			mainWindows.updateTable(ManagerPersistence.readProductsOfJsonForPage(new File(ManagerPersistence.PATH_NAME), mainWindows.getNumberPageCurrent()));
-			mainWindowUser.getPanelShowProducts().addJbuttons(shop.getListProducts(),this);
+			shop.setListProductsFilter(listProducts);
+			mainWindows.updateTable(shop.getListProductsFilter(), shop.getPointProductsForPage(mainWindows.getNumberPageCurrent()));
+			mainWindowUser.getPanelShowProducts().addJbuttons(shop.getListProducts(), this);
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(mainWindows, "Not exist File whit data");
 		}
-		numberMaxPages(shop.getListProducts());
+		numberMaxPages(shop.getListProductsFilter());
 		mainWindows.setFormatPages(MAX_NUMBER_PAGES);
-		if (shop.getListProducts().size() <= Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage"))) {
+		if (shop.getListProductsFilter().size() <= Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage"))) {
 			mainWindows.disableButtonsControl();
 		}
 	}
@@ -87,14 +83,12 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ArrayList<Product> listProducts;
 		switch (Action.valueOf(e.getActionCommand())) {
 		case BUTTON_OPEN_DIALOG_ADMIN:
-			dialogUserOrAdmin.setVisible(false);
-			mainWindows.setVisible(true);
+			actionButtonOpenDialogAdmin();
 			break;
 		case BUTTON_OPEN_DIALOG_CUSTOMER:
-			mainWindowUser.setVisible(true);
+			actionButtonOpenDialogUser();
 			break;
 		case OPEN_DIALOG_DESCRIPTION_PRODUCT:
 			dialogDescriptionProduct.setVisible(true);
@@ -103,31 +97,19 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 			dialogDescriptionProduct.setVisible(false);
 			break;
 		case BUTTON_SAVE_DESCRIPTION:
-			dialogDescriptionProduct.setVisible(false);
-			dialogCreateProduct.agregarDescripcion(dialogDescriptionProduct.getDescriptionProduct());
-			dialogCreateProduct.setVisible(true);			
+			actionButtonSaveDescription();
 			break;
 		case BUTTON_ADD_PRODUCT:
 			dialogCreateProduct.setVisible(true);
 			break;
 		case CLOSE_DIALOG_CREATE_PRODUCT:
-			dialogCreateProduct.setVisible(false);
-			dialogCreateProduct.clearnText();
+			actionButtonCloseDialogCreateProduct();
 			break;
 		case BUTTON_SAVE_PRODUCT:
 			actionButtonSave();
 			break;
 		case EXIT:
 			System.exit(0);
-			break;
-		case BUTTON_SEARCH_BY_NAME:
-			searchByName();
-			break;
-		case BUTTON_SEARCH_BY_PRICE:
-			searchByPrice();
-			break;	
-		case BUTTON_SEARCH_BY_CATEGORY:
-			searchByCategory();
 			break;
 		case BUTTON_LAST_PAGE_BACK:
 			actionButtonLastPageBack();
@@ -177,71 +159,84 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 		case CLOSE_DIALOG_BIO_PRODUCT:
 			dialogBio.setVisible(false);
 			break;
-		case BUTTON_BIO_PRODUCT:
-			break;
-		case BUTTON_EDIT_PRODUCT:
-			break;
 		case BUTTON_PRODUCTOS:
 			break;
-		case BUTTON_REMOVE_PRODUCT:
-			break;
 		case BUTTON_SHOW_PRODUCTS_AUTOMOVILE:
-			listProducts = shop.searchProductForCategory(Category.AUTOMOTIVE);
-			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			actionButtonShowCategorys(Category.AUTOMOTIVE);
 			break;
 		case BUTTON_SHOW_PRODUCTS_BOOKS:
-			listProducts = shop.searchProductForCategory(Category.BOOKS);
-			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			actionButtonShowCategorys(Category.BOOKS);
 			break;
 		case BUTTON_SHOW_PRODUCTS_ENTERTAINMENT:
-			listProducts = shop.searchProductForCategory(Category.ENTERTAINMENT);
-			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			actionButtonShowCategorys(Category.ENTERTAINMENT);
 			break;
 		case BUTTON_SHOW_PRODUCTS_HOME:
-			listProducts = shop.searchProductForCategory(Category.HOME);
-			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			actionButtonShowCategorys(Category.HOME);
 			break;
 		case BUTTON_SHOW_PRODUCTS_SPORTS:
-			listProducts = shop.searchProductForCategory(Category.SPORTS);
-			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			actionButtonShowCategorys(Category.SPORTS);
 			break;
 		case BUTTON_SHOW_PRODUCTS_SUPERMARKET:
-			listProducts = shop.searchProductForCategory(Category.SUPERMARKET);
-			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			actionButtonShowCategorys(Category.SUPERMARKET);
 			break;
 		case BUTTON_SHOW_PRODUCTS_TECHNOLOGY:
-			listProducts = shop.searchProductForCategory(Category.TECHNOLOGY);
-			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
-			mainWindowUser.revalidate();
+			actionButtonShowCategorys(Category.TECHNOLOGY);
 			break;
 		case BUTTON_SHOW_PRODUCTS_TOYS:
-			listProducts = shop.searchProductForCategory(Category.TOYS);
-			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
+			actionButtonShowCategorys(Category.TOYS);
 			break;
 		case BUTTON__SHOW_PRODUCTS_CLOTHES_AND_ACCESSORIES:
-			listProducts = shop.searchProductForCategory(Category.CLOTHES_AND_ACCESSORIES);
-			mainWindowUser.getPanelShowProducts().addJbuttons(listProducts,this);
-			mainWindowUser.revalidate();
+			actionButtonShowCategorys(Category.CLOTHES_AND_ACCESSORIES);
 			break;
-		case SHOW_DIALOG_CREATE:
-			
+		case SHOW_TABLE:
+			mainWindows.setVisibleTable();
+			break;
+		case SHOW_CLIENTS:
+			mainWindows.setInvisibleTable();
+			break;
+		case BUTTON_PRINT:
+			break;
+		case BUTTON_PAPERS:
 			break;
 		default:
 			break;
 		}
 	}
+
+	private void actionButtonOpenDialogUser() {
+		dialogUserOrAdmin.setVisible(false);
+		mainWindowUser.setVisible(true);
+	}
+
+	private void actionButtonOpenDialogAdmin() {
+		dialogUserOrAdmin.setVisible(false);
+		mainWindows.setVisible(true);
+	}
+
+	private void actionButtonSaveDescription() {
+		dialogDescriptionProduct.setVisible(false);
+		dialogCreateProduct.addDescription(dialogDescriptionProduct.getDescriptionProduct());
+		dialogCreateProduct.setVisible(true);
+	}
+
+	private void actionButtonCloseDialogCreateProduct() {
+		dialogCreateProduct.setVisible(false);
+		dialogCreateProduct.clearnText();
+	}
+
+	private void actionButtonShowCategorys(Category category) {
+		shop.setListProductsFilter(shop.searchProductForCategory(category));
+		mainWindowUser.getPanelShowProducts().addJbuttons(shop.getListProductsFilter(), this);
+		mainWindowUser.revalidate();
+	}
 	
 	private void actionButtonAll() {
 		mainWindows.setNumberPageCurrent(1, MAX_NUMBER_PAGES);
 		mainWindows.disableButtonsControlBack();
-		option = 0;
-		try {
-			mainWindows.updateTable(ManagerPersistence.readProductsOfJsonForPage(new File(ManagerPersistence.PATH_NAME), mainWindows.getNumberPageCurrent()));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		numberMaxPages(shop.getListProducts());
-		if (shop.getListProducts().size() <= Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage"))) {
+		shop.setListProductsFilter(shop.getListProducts());
+		mainWindows.updateTable(shop.getListProductsFilter(), shop.getPointProductsForPage(mainWindows.getNumberPageCurrent()));
+		numberMaxPages(shop.getListProductsFilter());
+		if (shop.getListProductsFilter().size() <= Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage"))) {
 			mainWindows.disableButtonsControl();
 		}else {
 			mainWindows.enableButtonsControl();
@@ -259,7 +254,7 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 	}
 	
 	private void filterMainWindowUser(){
-		ArrayList<Product> listProducts = shop.getListProductsForFilter(mainWindowUser.getFilteringOptions().getTextFiledSearchByName(),mainWindowUser.getFilteringOptions().getSpinnerSearchByPriceMin(),mainWindowUser.getFilteringOptions().getSpinneSearchByPriceMax(), mainWindowUser.getFilteringOptions().getComboBoxSearchByCategory());
+		ArrayList<Product> listProducts = shop.getListProductsForFilter(mainWindowUser.getFilteringOptions().getTextFiledSearchByName(), mainWindowUser.getFilteringOptions().getSpinnerSearchByPriceMin(), mainWindowUser.getFilteringOptions().getSpinneSearchByPriceMax(), mainWindowUser.getFilteringOptions().getComboBoxSearchByCategory());
 		mainWindowUser.getPanelShowProducts().addJbuttons(listProducts, this);
 		mainWindowUser.revalidate();
 	}
@@ -267,11 +262,10 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 	private void filterMainWindow(){
 		mainWindows.setNumberPageCurrent(1, MAX_NUMBER_PAGES);
 		mainWindows.disableButtonsControlBack();
-		ArrayList<Product> listProducts = shop.getListProductsForFilter(mainWindows.getTextFiledSearchByName(), mainWindows.getSpinnerSearchByPriceMin(), mainWindows.getSpinneSearchByPriceMax(), mainWindows.getComboBoxSearchByCategory());
-		mainWindows.updateTable(ManagerPersistence.readProductsOfArrayListForPage(listProducts, mainWindows.getNumberPageCurrent()));
-		option = 1;
-		numberMaxPages(listProducts);
-		if ((listProducts.size() > Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage")))) {
+		shop.setListProductsFilter(shop.getListProductsForFilter((String)mainWindows.getListValuesForFilter()[0], (double)mainWindows.getListValuesForFilter()[1], (double)mainWindows.getListValuesForFilter()[2], (Category)mainWindows.getListValuesForFilter()[3]));
+		mainWindows.updateTable(shop.getListProductsFilter(), shop.getPointProductsForPage(mainWindows.getNumberPageCurrent()));
+		numberMaxPages(shop.getListProductsFilter());
+		if ((shop.getListProductsFilter().size() > Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage")))) {
 			mainWindows.enableButtonsControl();
 		}else {
 			mainWindows.disableButtonsControl();
@@ -319,10 +313,21 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 	private void actionButtonSaveSettings() {
 		dialogSettings.saveSettingNumberDataForPage();
 		dialogSettings.saveSettingChooseImage();
-		numberMaxPages(shop.getListProducts());
+		numberMaxPages(shop.getListProductsFilter());
 		mainWindows.setFormatPages(MAX_NUMBER_PAGES);
+		validationsButtonSaveSettings();
+		mainWindows.updateTable(shop.getListProductsFilter(), shop.getPointProductsForPage(mainWindows.getNumberPageCurrent()));
+		numberMaxPages(shop.getListProductsFilter());
+		dialogSettings.setVisible(false);
+	}
+
+	private void validationsButtonSaveSettings() {
+		if (mainWindows.getNumberPageCurrent() > MAX_NUMBER_PAGES) {
+			mainWindows.setNumberPageCurrent(MAX_NUMBER_PAGES, MAX_NUMBER_PAGES);
+			mainWindows.disableButtonsControl();
+		}
 		if (mainWindows.getNumberRowsCurrent() == 1) {
-			if (mainWindows.getNumberPageCurrent() > 1) {
+			if (mainWindows.getNumberPageCurrent() > 1 && mainWindows.getNumberPageCurrent() > MAX_NUMBER_PAGES) {
 				mainWindows.setNumberPageCurrent(mainWindows.getNumberPageCurrent()-1, MAX_NUMBER_PAGES);
 			}
 			mainWindows.disableButtonsControl();
@@ -330,135 +335,104 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 		if (MAX_NUMBER_PAGES == 1) {
 			mainWindows.disableButtonsControl();
 		}else {
-			mainWindows.enableButtonsControl();
+			if (mainWindows.getNumberPageCurrent() != MAX_NUMBER_PAGES) {
+				mainWindows.enableButtonsControl();				
+			}
 		}
-		try {
-			mainWindows.updateTable(ManagerPersistence.readProductsOfJsonForPage(new File(ManagerPersistence.PATH_NAME), mainWindows.getNumberPageCurrent()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		option = 0;
-		numberMaxPages(shop.getListProducts());
-		dialogSettings.setVisible(false);
 	}
 	
 	private int MAX_NUMBER_PAGES = 1;
-	private int option = 0;
 	
 	private void actionButtonLastPageNext() {
 		mainWindows.setNumberPageCurrent(MAX_NUMBER_PAGES, MAX_NUMBER_PAGES);
-		advanceForPages(Action.BUTTON_LAST_PAGE_NEXT, option);
+		advanceForPages(Action.BUTTON_LAST_PAGE_NEXT);
 	}
 
-	private void advanceForPages(Action action, int option) {
-		if (option == 0) {
-			try {
-				mainWindows.advanceForPage(ManagerPersistence.readProductsOfJsonForPage(new File(ManagerPersistence.PATH_NAME), mainWindows.getNumberPageCurrent()), action, MAX_NUMBER_PAGES);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}			
-		}else {
-				mainWindows.advanceForPage(ManagerPersistence.readProductsOfArrayListForPage(shop.getListProdutsFilter(),  mainWindows.getNumberPageCurrent()), action, MAX_NUMBER_PAGES);
-		}
+	private void advanceForPages(Action action) {
+		mainWindows.advanceForPage(shop.getListProductsFilter(), shop.getPointProductsForPage(mainWindows.getNumberPageCurrent()), action, MAX_NUMBER_PAGES);
 	}
 
 	private void actionButtonPageNext() {
 		mainWindows.setNumberPageCurrent(mainWindows.getNumberPageCurrent()+1, MAX_NUMBER_PAGES);
-		advanceForPages(Action.BUTTON_PAGE_NEXT, option);
+		advanceForPages(Action.BUTTON_PAGE_NEXT);
 	}
 
 	private void actionButtonPageBack() {
 		mainWindows.setNumberPageCurrent(mainWindows.getNumberPageCurrent()-1, MAX_NUMBER_PAGES);
-		advanceForPages(Action.BUTTON_PAGE_BACK, option);
+		advanceForPages(Action.BUTTON_PAGE_BACK);
 	}
 
 	private void actionButtonLastPageBack() {
 		mainWindows.setNumberPageCurrent(1, MAX_NUMBER_PAGES);
-		advanceForPages(Action.BUTTON_LAST_PAGE_BACK, option);
-	}
-
-	private void searchByCategory() {
-		Category categorySeleccion = (Category) JOptionPane.showInputDialog(null,"Select a category", "Search for Category",
-		JOptionPane.QUESTION_MESSAGE,null, Category.values(), Category.values()[0]);
-		ArrayList<Product> filteredProducts = shop.searchProductForCategory(categorySeleccion);
-		mainWindows.updateTable(filteredProducts);
-	}
-
-	private void searchByPrice() {
-		
-	}
-
-	private void searchByName() {
-		String nameProduct = JOptionPane.showInputDialog("Enter the product name");
-		ArrayList<Product> filteredProducts = shop.searchProductForName(nameProduct);
-		mainWindows.updateTable(filteredProducts);
+		advanceForPages(Action.BUTTON_LAST_PAGE_BACK);
 	}
 
 	private void actionButtonEdit(int id) {
-		option = 0;
 		try {
 			dialogCreateProduct.setVisible(true);
 			shop.getListProducts().remove(shop.getListProducts().size()-1);
 			shop.editProduct(id, dialogCreateProduct.getProduct());
-			mainWindows.updateTable(shop.getListProducts());
+			shop.setListProductsFilter(shop.getListProducts());
+			numberMaxPages(shop.getListProductsFilter());
+			mainWindows.updateTable(shop.getListProductsFilter(), shop.getPointProductsForPage(mainWindows.getNumberPageCurrent()));
 		} catch (IdProductInexistExeption e) {
 			JOptionPane.showMessageDialog(mainWindows, "Error the integer the product, please try again");
 		}
-		try {
-			shop.setListProducts(ManagerPersistence.readProductsOfJson(new File(ManagerPersistence.PATH_NAME)));
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
+		reloadListProducts();
 	}
 	
 	private void actionButtonRemove(int id) {
 		if(JOptionPane.showConfirmDialog(mainWindows, "Really want to remove this product?", "Remove Product", JOptionPane.WARNING_MESSAGE) == 0){
 			try {
-				if (mainWindows.getNumberRowsCurrent() == 1) {
-					if (mainWindows.getNumberPageCurrent() > 1) {
-						mainWindows.setNumberPageCurrent(mainWindows.getNumberPageCurrent()-1, MAX_NUMBER_PAGES);
-					}
-					mainWindows.disableButtonsControl();
-				}
+				validationsButtonRemove();
 				shop.deleteProduct(id);
+				shop.setListProductsFilter(shop.getListProducts());
 				ManagerPersistence.writeProductsInJson(shop.getListProducts());
-				mainWindows.updateTable(ManagerPersistence.readProductsOfJsonForPage(new File(ManagerPersistence.PATH_NAME), mainWindows.getNumberPageCurrent()));
-				option = 0;
-				numberMaxPages(shop.getListProducts());
+				mainWindows.updateTable(shop.getListProductsFilter(), shop.getPointProductsForPage(mainWindows.getNumberPageCurrent()));
+				numberMaxPages(shop.getListProductsFilter());
 			} catch (IdProductInexistExeption | IOException e) {
 				e.printStackTrace();
 			}
 			mainWindows.setFormatPages(MAX_NUMBER_PAGES);
 		}
-		try {
-			shop.setListProducts(ManagerPersistence.readProductsOfJson(new File(ManagerPersistence.PATH_NAME)));
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
+		reloadListProducts();
+	}
+
+	private void validationsButtonRemove() {
+		if (mainWindows.getNumberRowsCurrent() == 1) {
+			if (mainWindows.getNumberPageCurrent() > 1) {
+				mainWindows.setNumberPageCurrent(mainWindows.getNumberPageCurrent()-1, MAX_NUMBER_PAGES);
+			}
+			mainWindows.disableButtonsControl();
 		}
 	}
 
 	private void actionButtonSave() {
 		try {
 			Product product = dialogCreateProduct.getProduct();
-			if (mainWindows.getNumberRowsCurrent() == Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage")) && mainWindows.getNumberPageCurrent() == MAX_NUMBER_PAGES) {
-				mainWindows.enableButtonsControl();
+			validationsButtonSave();
+			if (product.getDescription() == null) {
+				dialogCreateProduct.displayErrors("The description can´t is void");
+				return;
 			}
 			shop.addProduct(product);
+			shop.setListProductsFilter(shop.getListProducts());
 			ManagerPersistence.writeProductsInJson(shop.getListProducts());
-			mainWindows.updateTable(ManagerPersistence.readProductsOfJsonForPage(new File(ManagerPersistence.PATH_NAME), mainWindows.getNumberPageCurrent()));
+			mainWindows.updateTable(shop.getListProductsFilter(), shop.getPointProductsForPage(mainWindows.getNumberPageCurrent()));
 		} catch (Exception e) {
 			dialogCreateProduct.displayErrors(e.getMessage());
 			return;
 		}
 		dialogCreateProduct.setVisible(false);
-		numberMaxPages(shop.getListProducts());
-		option = 0;
+		numberMaxPages(shop.getListProductsFilter());
 		mainWindows.setFormatPages(MAX_NUMBER_PAGES);
 		dialogCreateProduct.clearnText();
-		try {
-			shop.setListProducts(ManagerPersistence.readProductsOfJson(new File(ManagerPersistence.PATH_NAME)));
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
+		reloadListProducts();
+	}
+
+	private void validationsButtonSave() {
+		if (mainWindows.getNumberRowsCurrent() == Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage")) && mainWindows.getNumberPageCurrent() == MAX_NUMBER_PAGES) {
+			mainWindows.enableButtonsControl();
 		}
 	}
 
@@ -487,18 +461,22 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 				actionButtonEdit(id);
 				break;
 			case BUTTON_BIO_PRODUCT:
-				try {
-					shop.setListProducts(ManagerPersistence.readProductsOfJson(new File(ManagerPersistence.PATH_NAME)));
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
+				reloadListProducts();
 				dialogBio.assignProduct(shop.findProductForId(id));
 				break;
 			default:
 				break;
 			}
 		}
-//		System.out.println(((JTable)e.getComponent()).getModel().getValueAt(0, ((JTable)e.getComponent()).getSelectedColumn()).toString());
+	}
+
+	private void reloadListProducts() {
+		try {
+			shop.setListProducts(ManagerPersistence.readProductsOfJson(new File(ManagerPersistence.PATH_NAME)));
+			shop.setListProductsFilter(shop.getListProducts());
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	@Override

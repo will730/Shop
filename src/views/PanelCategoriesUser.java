@@ -1,114 +1,99 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import controller.Action;
+import controller.Constants;
 import controller.Controller;
 
 public class PanelCategoriesUser extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Color BACKGROUND_COLOR = Color.decode("#40658A");
-	private Color FONT_COLOR = Color.WHITE;
-	
 	public PanelCategoriesUser(Controller  controller) {
 		setLayout(new GridLayout(1, 10));
-		setBackground(BACKGROUND_COLOR);
+		setBackground(Constants.COLOR_BLUE_GENERAL);
 		
-		JLabel lbCategories = new JLabel("CATEGORIES");
-		lbCategories.setHorizontalAlignment(SwingConstants.CENTER);
-		lbCategories.setForeground(FONT_COLOR);
-		add(lbCategories);
+		JLabel labelCategories = new JLabel("CATEGORIES");
+		labelCategories.setHorizontalAlignment(SwingConstants.CENTER);
+		labelCategories.setForeground(Color.WHITE);
+		add(labelCategories);
 		
-		JButton btnTechnology = new JButton("Technology");
-		btnTechnology.setToolTipText("Technology");
-		btnTechnology.addActionListener(controller);
-		btnTechnology.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_TECHNOLOGY.name());
-		btnTechnology.setForeground(FONT_COLOR);
-		btnTechnology.setBackground(BACKGROUND_COLOR);
-		btnTechnology.setBorder(BorderFactory.createLineBorder(BACKGROUND_COLOR));
-		add(btnTechnology);
+		JButton botonTechnology = new JButton("Technology");
+		botonTechnology.setToolTipText("Technology");
+		botonTechnology.addActionListener(controller);
+		botonTechnology.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_TECHNOLOGY.name());
+		add(botonTechnology);
 		
-		JButton btnAddClothesAndAccesories = new JButton("Clothes and Accesories");
-		btnAddClothesAndAccesories.setToolTipText("Clothes and Accesories");
-		btnAddClothesAndAccesories.addActionListener(controller);
-		btnAddClothesAndAccesories.setActionCommand(Action.BUTTON__SHOW_PRODUCTS_CLOTHES_AND_ACCESSORIES.name());
-		btnAddClothesAndAccesories.setBackground(BACKGROUND_COLOR);
-		btnAddClothesAndAccesories.setForeground(FONT_COLOR);
-		btnAddClothesAndAccesories.setBorder(BorderFactory.createLineBorder(BACKGROUND_COLOR));
-		add(btnAddClothesAndAccesories);
+		JButton botonAddClothesAndAccesories = new JButton("Clothes and Accesories");
+		botonAddClothesAndAccesories.setToolTipText("Clothes and Accesories");
+		botonAddClothesAndAccesories.addActionListener(controller);
+		botonAddClothesAndAccesories.setActionCommand(Action.BUTTON__SHOW_PRODUCTS_CLOTHES_AND_ACCESSORIES.name());
+		add(botonAddClothesAndAccesories);
 
-		JButton btnAddSports = new JButton("Sports");
-		btnAddSports.setToolTipText("Products");
-		btnAddSports.addActionListener(controller);
-		btnAddSports.setForeground(FONT_COLOR);
-		btnAddSports.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_SPORTS.name());
-		btnAddSports.setBackground(BACKGROUND_COLOR);
-		btnAddSports.setBorder(BorderFactory.createLineBorder(BACKGROUND_COLOR));
-		add(btnAddSports);
+		JButton botonAddSports = new JButton("Sports");
+		botonAddSports.setToolTipText("Products");
+		botonAddSports.addActionListener(controller);
+		botonAddSports.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_SPORTS.name());
+		add(botonAddSports);
 		
-		JButton btnAddSupermarket = new JButton("Supermarket");
-		btnAddSupermarket.setToolTipText("Supermarket");
-		btnAddSupermarket.addActionListener(controller);
-		btnAddSupermarket.setForeground(FONT_COLOR);
-		btnAddSupermarket.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_SUPERMARKET.name());
-		btnAddSupermarket.setBackground(BACKGROUND_COLOR);
-		btnAddSupermarket.setBorder(BorderFactory.createLineBorder(BACKGROUND_COLOR));
-		add(btnAddSupermarket);
+		JButton botonAddSupermarket = new JButton("Supermarket");
+		botonAddSupermarket.setToolTipText("Supermarket");
+		botonAddSupermarket.addActionListener(controller);
+		botonAddSupermarket.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_SUPERMARKET.name());
+		add(botonAddSupermarket);
 		
-		JButton btnAddToys = new JButton("Toys");
-		btnAddToys.setToolTipText("Toys");
-		btnAddToys.addActionListener(controller);
-		btnAddToys.setForeground(FONT_COLOR);
-		btnAddToys.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_TOYS.name());
-		btnAddToys.setBackground(BACKGROUND_COLOR);
-		btnAddToys.setBorder(BorderFactory.createLineBorder(BACKGROUND_COLOR));
-		add(btnAddToys);
+		JButton botonAddToys = new JButton("Toys");
+		botonAddToys.setToolTipText("Toys");
+		botonAddToys.addActionListener(controller);
+		botonAddToys.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_TOYS.name());
+		add(botonAddToys);
 		
-		JButton btnAddHome = new JButton("Home");
-		btnAddHome.setToolTipText("Home");
-		btnAddHome.addActionListener(controller);
-		btnAddHome.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_HOME.name());
-		btnAddHome.setBackground(BACKGROUND_COLOR);
-		btnAddHome.setForeground(FONT_COLOR);
-		btnAddHome.setBorder(BorderFactory.createLineBorder(BACKGROUND_COLOR));
-		add(btnAddHome);
+		JButton botonAddHome = new JButton("Home");
+		botonAddHome.setToolTipText("Home");
+		botonAddHome.addActionListener(controller);
+		botonAddHome.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_HOME.name());
+		add(botonAddHome);
 		
 		
-		JButton btnAddBooks = new JButton("Books");
-		btnAddBooks.setToolTipText("Books");
-		btnAddBooks.addActionListener(controller);
-		btnAddBooks.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_BOOKS.name());
-		btnAddBooks.setBackground(BACKGROUND_COLOR);
-		btnAddBooks.setForeground(FONT_COLOR);
-		btnAddBooks.setBorder(BorderFactory.createLineBorder(BACKGROUND_COLOR));
-		add(btnAddBooks);
+		JButton botonAddBooks = new JButton("Books");
+		botonAddBooks.setToolTipText("Books");
+		botonAddBooks.addActionListener(controller);
+		botonAddBooks.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_BOOKS.name());
+		add(botonAddBooks);
 		
-		JButton btnAddEntertainment = new JButton("Entertainment");
-		btnAddEntertainment.setToolTipText("Entertainment");
-		btnAddEntertainment.addActionListener(controller);
-		btnAddEntertainment.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_ENTERTAINMENT.name());
-		btnAddEntertainment.setBackground(BACKGROUND_COLOR);
-		btnAddEntertainment.setForeground(FONT_COLOR);
-		btnAddEntertainment.setBorder(BorderFactory.createLineBorder(BACKGROUND_COLOR));
-		add(btnAddEntertainment);
+		JButton botonAddEntertainment = new JButton("Entertainment");
+		botonAddEntertainment.setToolTipText("Entertainment");
+		botonAddEntertainment.addActionListener(controller);
+		botonAddEntertainment.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_ENTERTAINMENT.name());
+		add(botonAddEntertainment);
 		
-		JButton btnAddAutomovile = new JButton("Automovile ");
-		btnAddAutomovile.setToolTipText("Automovile");
-		btnAddAutomovile.addActionListener(controller);
-		btnAddAutomovile.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_AUTOMOVILE.name());
-		btnAddAutomovile.setBackground(BACKGROUND_COLOR);
-		btnAddAutomovile.setForeground(FONT_COLOR);
-		btnAddAutomovile.setBorder(BorderFactory.createLineBorder(BACKGROUND_COLOR));
-		add(btnAddAutomovile);
+		JButton botonAddAutomovile = new JButton("Automovile ");
+		botonAddAutomovile.setToolTipText("Automovile");
+		botonAddAutomovile.addActionListener(controller);
+		botonAddAutomovile.setActionCommand(Action.BUTTON_SHOW_PRODUCTS_AUTOMOVILE.name());
+		add(botonAddAutomovile);
 		
+		assignValuesSharedsToComponents();
+	}
+	
+	private void assignValuesSharedsToComponents() {
+		Component[] listComponent = getComponents();
+		for (Component component : listComponent) {
+			if (component.getClass() != JLabel.class) {
+				component.setBackground(Constants.COLOR_BLUE_GENERAL);
+				component.setForeground(Color.WHITE);
+				((JComponent) component).setBorder(BorderFactory.createLineBorder(Constants.COLOR_BLUE_GENERAL));
+			}
+		}
 	}
 }

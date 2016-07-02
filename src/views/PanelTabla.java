@@ -4,29 +4,29 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Point;
 import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+
 import persistence.ManagerPersistence;
 import controller.Action;
+import controller.Constants;
 import controller.Controller;
 import models.dao.Category;
-import models.dao.ToolTipConstants;
 import models.entity.Product;
 
 public class PanelTabla extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private JMenuBar menuBar;
 	private JTable table;
 	private DefaultTableModel defaultTableModel;
 	private JButton buttonNext;
@@ -39,76 +39,81 @@ public class PanelTabla extends JPanel {
 	private JButton buttonRemoveProduct;
 	private JButton buttonEditProduct;
 	private JButton buttonBioProduct;
+	private TableToolbar tableToolBar;
 
 	public PanelTabla(Controller controller) {
-		setBackground(Color.decode("#63DFE3"));
-
+		setBackground(Constants.COLOR_DARK_BLUE_GENERAL);
 		setLayout(new BorderLayout());
-		menuBar = new JMenuBar();
-		menuBar.setBackground(Color.decode("#40658A"));
-		menuBar.setBorder(BorderFactory.createLineBorder(Color.white));
-		JButton btnAddProduct = new JButton(new ImageIcon(getClass().getResource("/img/addProduct.png")));
-		btnAddProduct.setToolTipText(ToolTipConstants.ADD_NEW_PRODUCT.toString());
-		btnAddProduct.addActionListener(controller);
-		btnAddProduct.setActionCommand(Action.BUTTON_ADD_PRODUCT.name());
-		btnAddProduct.setBackground(Color.black);
-		btnAddProduct.setBorder(BorderFactory.createLineBorder(Color.black));
-		menuBar.add(btnAddProduct);
-		add(menuBar, BorderLayout.PAGE_START);
+
+		tableToolBar = new TableToolbar(controller);
+		tableToolBar.setBackground(Constants.COLOR_DARK_BLUE_GENERAL);
+		add(tableToolBar, BorderLayout.PAGE_START);
 
 		JPanel panelTable = new JPanel(new BorderLayout());
 		panelTable.setBorder(BorderFactory.createLineBorder(Color.white));
+		
 		table = new JTable();
 		table.setShowGrid(!true);
 		table.setOpaque(!true);
 		table.getTableHeader().setReorderingAllowed(false);
-		table.setSelectionBackground(Color.YELLOW);
+		table.setSelectionBackground(Constants.COLOR_BACKGROUND_SELECTION_TABLE);
 		table.setGridColor(Color.GREEN);
 		table.setGridColor(Color.BLACK);
-		// table.setFont(new Font("Times New Roman", 15, 15));
+		table.setFont(Constants.FONT_TABLE);
 		panelTable.add(new JScrollPane(table));
-
-		add(panelTable, BorderLayout.CENTER);
-
-		addpanelControl(controller);
 		
+		addPanelControl(controller);
 		
 		assignColorDissableBack();
 
 		modificateTabla(controller);
+		
 		defaultTableModel.setColumnIdentifiers(titlesTable);
 		defaultTableModel.addColumn("#");
 		defaultTableModel.addColumn("Remove");
 		defaultTableModel.addColumn("Edit");
 		defaultTableModel.addColumn("Bio");
+		
 		table.moveColumn(6, 0);
+		
 		buttonRemoveProduct = new JButton("Remove");
 		buttonRemoveProduct.setToolTipText("Delete this product");
 		buttonRemoveProduct.addActionListener(controller);
 		buttonRemoveProduct.setBackground(Color.RED);
+		buttonRemoveProduct.setFont(Constants.FONT_TABLE);
+		buttonRemoveProduct.setForeground(Color.WHITE);
+		
 		buttonEditProduct = new JButton("Edit");
+		buttonEditProduct.setFont(Constants.FONT_TABLE);
 		buttonEditProduct.setToolTipText("Edit this product");
 		buttonEditProduct.addActionListener(controller);
-		buttonEditProduct.setBackground(Color.GREEN);
+		buttonEditProduct.setBackground(Color.decode("#00A33D"));
+		buttonEditProduct.setForeground(Color.WHITE);
+		
 		buttonBioProduct = new JButton("Bio");
+		buttonBioProduct.setFont(Constants.FONT_TABLE);
 		buttonBioProduct.setToolTipText("Show Bio of this product");
 		buttonBioProduct.addActionListener(controller);
 		buttonBioProduct.setBackground(Color.BLUE);
-		// table.setBackground(new Color(80, 250, 22, 50));
+		buttonBioProduct.setForeground(Color.WHITE);
+		
+		add(panelTable, BorderLayout.CENTER);
 	}
 
 	private void modificateTabla(Controller controller) {
-
 		String[] columnas = new String[] {};
 
-		final Class[] tiposColumnas = new Class[] { Object.class, String.class, Object.class, Object.class,
-				Category.class, Object.class, String.class, JButton.class, JButton.class, JButton.class };
+		@SuppressWarnings("rawtypes")
+		final Class[] tiposColumnas = new Class[] { Object.class, String.class, Object.class, Object.class, Category.class, Object.class, String.class, JButton.class, JButton.class, JButton.class };
 
 		Object[][] datos = new Object[][] {};
 
 		table.setModel(defaultTableModel = new javax.swing.table.DefaultTableModel(datos, columnas) {
+			private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
 			Class[] tipos = tiposColumnas;
 
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			@Override
 			public Class getColumnClass(int columnIndex) {
 				return tipos[columnIndex];
@@ -122,14 +127,7 @@ public class PanelTabla extends JPanel {
 
 		table.setDefaultRenderer(JButton.class, new TableCellRenderer() {
 			@Override
-			public Component getTableCellRendererComponent(JTable jtable, Object objeto, boolean isSelected,
-					boolean hasFocus, int row, int column) {
-				// Component cell =
-				// table.getDefaultRenderer(getClass()).getTableCellRendererComponent(table,
-				// objeto, isSelected, hasFocus, row, column);
-				// if (row == 1 || row == 3 || row == 5) {
-				// cell.setBackground(Color.LIGHT_GRAY);
-				// }
+			public Component getTableCellRendererComponent(JTable jtable, Object objeto, boolean isSelected, boolean hasFocus, int row, int column) {
 				return (Component) objeto;
 			}
 		});
@@ -137,39 +135,47 @@ public class PanelTabla extends JPanel {
 		table.addMouseListener(controller);
 	}
 
-	private void addpanelControl(Controller controller) {
+	private void addPanelControl(Controller controller) {
 		JPanel panelControl = new JPanel(new FlowLayout());
 
 		panelControl.add(buttonLastBack = new JButton("<<"));
-		buttonLastBack.setBackground(Color.decode("#40658A"));
+		buttonLastBack.setBackground(Constants.COLOR_BLUE_GENERAL);
 		buttonLastBack.setForeground(Color.WHITE);
 		buttonLastBack.setToolTipText("go to ferst page");
 		buttonLastBack.addActionListener(controller);
+		buttonLastBack.setBorderPainted(false);
+		buttonLastBack.setFocusPainted(false);
 		buttonLastBack.setActionCommand(Action.BUTTON_LAST_PAGE_BACK.name());
 		buttonLastBack.setEnabled(false);
-
+		
 		panelControl.add(buttonBack = new JButton("<"));
-		buttonBack.setBackground(Color.decode("#5B7729"));
+		buttonBack.setBackground(Constants.COLOR_GREEN_GENERAL);
 		buttonBack.setForeground(Color.WHITE);
 		buttonBack.setToolTipText("advance to the previous page");
 		buttonBack.addActionListener(controller);
+		buttonBack.setBorderPainted(false);
+		buttonBack.setFocusPainted(false);
 		buttonBack.setActionCommand(Action.BUTTON_PAGE_BACK.name());
 		buttonBack.setEnabled(false);
 
-		panelControl.add(labelCountPage = new JLabel("1"));
+		panelControl.add(labelCountPage = new JLabel("0/0"));
 
 		panelControl.add(buttonNext = new JButton(">"));
-		buttonNext.setBackground(Color.decode("#5B7729"));
+		buttonNext.setBackground(Constants.COLOR_GREEN_GENERAL);
 		buttonNext.setForeground(Color.WHITE);
 		buttonNext.setToolTipText("advance to the next page");
 		buttonNext.addActionListener(controller);
+		buttonNext.setBorderPainted(false);
+		buttonNext.setFocusPainted(false);
 		buttonNext.setActionCommand(Action.BUTTON_PAGE_NEXT.name());
 
 		panelControl.add(buttonLastNext = new JButton(">>"));
-		buttonLastNext.setBackground(Color.decode("#40658A"));
+		buttonLastNext.setBackground(Constants.COLOR_BLUE_GENERAL);
 		buttonLastNext.setForeground(Color.WHITE);
 		buttonLastNext.setToolTipText("go to last page");
 		buttonLastNext.addActionListener(controller);
+		buttonLastNext.setBorderPainted(false);
+		buttonLastNext.setFocusPainted(false);
 		buttonLastNext.setActionCommand(Action.BUTTON_LAST_PAGE_NEXT.name());
 
 		panelControl.setOpaque(false);
@@ -231,9 +237,9 @@ public class PanelTabla extends JPanel {
 	}
 
 	private void assignColorEnableBack() {
-		buttonLastBack.setBackground(Color.decode("#40658A"));
+		buttonLastBack.setBackground(Constants.COLOR_BLUE_GENERAL);
 		buttonLastBack.setForeground(Color.WHITE);
-		buttonBack.setBackground(Color.decode("#5B7729"));
+		buttonBack.setBackground(Constants.COLOR_GREEN_GENERAL);
 		buttonBack.setForeground(Color.WHITE);
 	}
 
@@ -245,9 +251,9 @@ public class PanelTabla extends JPanel {
 	}
 
 	private void assignColorEnableNext() {
-		buttonLastNext.setBackground(Color.decode("#40658A"));
+		buttonLastNext.setBackground(Constants.COLOR_BLUE_GENERAL);
 		buttonLastNext.setForeground(Color.WHITE);
-		buttonNext.setBackground(Color.decode("#5B7729"));
+		buttonNext.setBackground(Constants.COLOR_GREEN_GENERAL);
 		buttonNext.setForeground(Color.WHITE);
 	}
 
@@ -271,6 +277,21 @@ public class PanelTabla extends JPanel {
 		defaultTableModel.addRow(product.getArrayContent());
 	}
 
+	public void updateTable(ArrayList<Product> listProducts, Point point) {
+		defaultTableModel.setRowCount(0);
+		for (int i = (int) point.getX(), j = 0; i < (int) point.getY() && j < ((int) point.getY() - (int) point.getX()); i++, j++) {
+			addProductToTable(listProducts.get(i));
+			int numberForPage = Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage"));
+			defaultTableModel.setValueAt(((getNumberPageCurrent() * numberForPage) + j) - (numberForPage - 1), j, 6);
+			buttonRemoveProduct.setActionCommand(Action.BUTTON_REMOVE_PRODUCT.name());
+			defaultTableModel.setValueAt(buttonRemoveProduct, j, 7);
+			buttonEditProduct.setActionCommand(Action.BUTTON_EDIT_PRODUCT.name());
+			defaultTableModel.setValueAt(buttonEditProduct, j, 8);
+			buttonBioProduct.setActionCommand(Action.BUTTON_BIO_PRODUCT.name());
+			defaultTableModel.setValueAt(buttonBioProduct, j, 9);
+		}
+	}
+	
 	public void updateTable(ArrayList<Product> listProducts) {
 		defaultTableModel.setRowCount(0);
 		for (int i = 0; i < listProducts.size(); i++) {
@@ -284,6 +305,10 @@ public class PanelTabla extends JPanel {
 			buttonBioProduct.setActionCommand(Action.BUTTON_BIO_PRODUCT.name());
 			defaultTableModel.setValueAt(buttonBioProduct, i, 9);
 		}
+	}
+	
+	public Object[] getListValuesForFilter() {
+		return tableToolBar.getListValuesForFilter();
 	}
 
 	public void disableButtonsControl() {

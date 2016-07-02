@@ -73,38 +73,4 @@ public class ManagerPersistence {
 		}
 		return listProducts;
 	}
-	
-	public static ArrayList<Product> readProductsOfJsonForPage(File file, int numberPageCurrent) throws FileNotFoundException {
-		BufferedReader bufferedReader = new BufferedReader(new FileReader(PATH_NAME));
-		Gson gson = new Gson();
-		JsonArray jsonArray = (JsonArray) gson.fromJson(bufferedReader, JsonArray.class);
-		ArrayList<Product> listProducts = new ArrayList<>();
-		int initCount = ((numberPageCurrent - 1) * Integer.parseInt(readProperty("numberDataForPage")));
-		int finishCount = numberPageCurrent * Integer.parseInt(readProperty("numberDataForPage"));
-		if (finishCount > jsonArray.size()) {
-			finishCount = jsonArray.size();
-		}
-		for (int i = initCount; i < finishCount; i++) {
-			ArrayList<String> listImagesProduct = new ArrayList<>();
-			for (JsonElement images : jsonArray.get(i).getAsJsonObject().get("listImages").getAsJsonArray()) {
-				listImagesProduct.add(images.getAsString());
-			}
-			listProducts.add(Shop.createProduct(jsonArray.get(i).getAsJsonObject().get("id").getAsInt(), jsonArray.get(i).getAsJsonObject().get("name").getAsString(), jsonArray.get(i).getAsJsonObject().get("price").getAsDouble(), null, jsonArray.get(i).getAsJsonObject().get("quantumAvailable").getAsInt(), Category.valueOf(jsonArray.get(i).getAsJsonObject().get("category").getAsString()), jsonArray.get(i).getAsJsonObject().get("discont").getAsDouble(), listImagesProduct));
-		}
-		return listProducts;
-	}
-	
-	public static ArrayList<Product> readProductsOfArrayListForPage(ArrayList<Product> listProducts, int numberPageCurrent) {
-		ArrayList<Product> resultListProducts = new ArrayList<>();
-		int initCount = ((numberPageCurrent - 1) * Integer.parseInt(readProperty("numberDataForPage")));
-		int finishCount = numberPageCurrent * Integer.parseInt(readProperty("numberDataForPage"));
-		if (finishCount > listProducts.size()) {
-			finishCount = listProducts.size();
-		}
-		for (int i = initCount; i < finishCount; i++) {
-			resultListProducts.add(listProducts.get(i));
-		}
-		return resultListProducts;
-	}
-
 }

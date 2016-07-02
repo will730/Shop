@@ -2,8 +2,8 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridLayout;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -13,8 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+
 import models.entity.Product;
 import controller.Action;
+import controller.Constants;
 import controller.Controller;
 
 public class DialogBio extends JDialog{
@@ -26,9 +28,7 @@ public class DialogBio extends JDialog{
 	private JLabel labelCategory;
 	private JLabel labelDiscont;
 	private JLabel labelName;
-	private JTextArea jTextAreaDescription;
-	public static final int WORD_SIZE = 12;
-	public static final String TYPE_WORD = "Arial Black";	
+	private JTextArea textAreaDescription;
 
 	public DialogBio(Controller controller, JFrame jFrame) {
 			super(jFrame);
@@ -39,48 +39,43 @@ public class DialogBio extends JDialog{
 			setLayout(new BorderLayout());
 			
 			JPanel panelImage = new JPanel(new GridLayout(1, 2));
+			
 			JLabel labelMessageImage = new JLabel("Image Product");
 			panelImage.add(labelMessageImage);
+			
 			
 			labelImage = new JLabel("Image", SwingConstants.CENTER);
 			labelImage.setToolTipText("hola </br> mundo");
 			labelImage.setHorizontalAlignment(SwingConstants.CENTER);
 			panelImage.add(labelImage);
-			add(panelImage, BorderLayout.PAGE_START);
 			
 			JPanel panelData = new JPanel(new GridLayout(6, 2));
 			
 			JLabel labelMessageName = new JLabel("Name");
-			labelMessageName.setFont(new Font(TYPE_WORD, Font.PLAIN, WORD_SIZE));
-//			labelMessageName.setHorizontalAlignment(SwingConstants.RIGHT);
 			panelData.add(labelMessageName);
 			
 			labelName = new JLabel("");
 			panelData.add(labelName);
 			
 			JLabel labelMessagePrice = new JLabel("Price ($)");
-//			labelMessagePrice.setHorizontalAlignment(SwingConstants.RIGHT);
 			panelData.add(labelMessagePrice);
 			
 			labelPrice = new JLabel("");
 			panelData.add(labelPrice);
 			
 			JLabel labelMessageQuantumAvailable = new JLabel("Quantum Available");
-//			labelMessageQuantumAvailable.setHorizontalAlignment(SwingConstants.RIGHT);
 			panelData.add(labelMessageQuantumAvailable);
 			
 			labelQuantumAvailable = new JLabel("");
 			panelData.add(labelQuantumAvailable);
 			
 			JLabel labelMeesageCategory = new JLabel("Category");
-//			labelMeesageCategory.setHorizontalAlignment(SwingConstants.RIGHT);
 			panelData.add(labelMeesageCategory);
 			
 			labelCategory = new JLabel("");
 			panelData.add(labelCategory);
 			
 			JLabel labelMessageDiscont = new JLabel("Discont (%)");
-//			labelMessageDiscont.setHorizontalAlignment(SwingConstants.RIGHT);
 			panelData.add(labelMessageDiscont);
 			
 			labelDiscont = new JLabel("");
@@ -90,26 +85,25 @@ public class DialogBio extends JDialog{
 			panelData.add(description);
 			
 			
-			jTextAreaDescription = new JTextArea();
-			jTextAreaDescription.setEditable(false);
-			jTextAreaDescription.setBackground(Color.decode("#58ACFA"));
-			JScrollPane jScrollPane = new JScrollPane(jTextAreaDescription);
+			textAreaDescription = new JTextArea();
+			textAreaDescription.setEditable(false);
+			textAreaDescription.setBackground(Constants.COLOR_BACKGROUND_PANELS);
+			JScrollPane jScrollPane = new JScrollPane(textAreaDescription);
 			jScrollPane.setBorder(null);
 			panelData.add(jScrollPane);
 			
 			JButton buttonClose = new JButton("Close");
-			buttonClose.setBackground(Color.decode("#40658A"));
+			buttonClose.setBackground(Constants.COLOR_BLUE_GENERAL);
 			buttonClose.setForeground(Color.WHITE);
 			buttonClose.addActionListener(controller);
 			buttonClose.setActionCommand(Action.CLOSE_DIALOG_BIO_PRODUCT.name());
-			panelData.add(buttonClose);
 			
+			add(panelImage, BorderLayout.PAGE_START);
 			add(panelData ,BorderLayout.CENTER);
 			add(buttonClose, BorderLayout.PAGE_END);
 	}
 	
 	public void assignProduct(Product product) {
-		System.out.println("size " + product.getListImages().size());
 		if (product.getListImages() != null && product.getListImages().size() != 0) {
 			labelImage.setIcon(new ImageIcon(product.getListImages().get(0)));
 			labelImage.setText("");
@@ -122,7 +116,7 @@ public class DialogBio extends JDialog{
 		labelQuantumAvailable.setText(String.valueOf(product.getQuantumAvailable()));
 		labelCategory.setText(product.getCategory().toString());
 		labelDiscont.setText(String.valueOf(product.getDiscont()));
-		jTextAreaDescription.setText(product.getDescription().toString());
+		textAreaDescription.setText(product.getDescription().toString());
 		setVisible(true);
 	}
 

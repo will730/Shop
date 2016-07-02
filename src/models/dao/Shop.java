@@ -1,6 +1,9 @@
 package models.dao;
 
+import java.awt.Point;
 import java.util.ArrayList;
+
+import persistence.ManagerPersistence;
 import Exceptions.ExhaustedProductExeption;
 import Exceptions.IdProductInexistExeption;
 import Exceptions.idRegistered;
@@ -12,13 +15,14 @@ public class Shop {
 	private String name;
 	private DescriptionShop descriptionShop;
 	private ArrayList<Product> listProducts;
-	private ArrayList<Product> listProdutsFilter = new ArrayList<>();;
+	private ArrayList<Product> listProductsFilter;
 
 	public Shop(int id, String name, DescriptionShop descriptionShop) {
 		this.id = id;
 		this.name = name;
 		this.descriptionShop = descriptionShop;
 		listProducts = new ArrayList<>();
+		listProductsFilter = new ArrayList<>();
 	}
 
 	private boolean idCheck(Product product) {
@@ -144,29 +148,66 @@ public class Shop {
 		this.listProducts = listProducts;
 	}
 
-	public ArrayList<Product> getListProductsForFilter(String name, double priceMin, double priceMax,
-			Category category) {
-		getListProdutsFilter().clear();
+	public ArrayList<Product> getListProductsForFilter(String name, double priceMin, double priceMax, Category category) {
+		ArrayList<Product> listProductsResult = new ArrayList<>();
 		for (Product product : listProducts) {
-			if (product.getName().contains(name) && (product.getPrice() >= priceMin && product.getPrice() <= priceMax)
-					&& product.getCategory().equals(category)) {
-				getListProdutsFilter().add(product);
+			if (product.getName().contains(name) && (product.getPrice() >= priceMin && product.getPrice() <= priceMax) && product.getCategory().equals(category)) {
+//				System.out.println("asd");
+				listProductsResult.add(product);
 			}
 		}
-		return getListProdutsFilter();
+		return listProductsResult;
 	}
 
-	public ArrayList<Product> getListProdutsFilter() {
-		return listProdutsFilter;
+	public ArrayList<Product> getListProductsFilter() {
+		return listProductsFilter;
+	}
+	
+	public void setListProductsFilter(ArrayList<Product> listProductsFilter) {
+		this.listProductsFilter = listProductsFilter;
 	}
 
 	public Product findProductForId(int id) {
-		for (Product product : listProducts) {
+		for (Product product : listProductsFilter) {
 			if (product.getId() == id) {
 				return product;
 			}
 		}
 		return null;
+	}
+	
+	public Point getPointProductsForPage(int numberPageCurrent) {
+		int initCount = ((numberPageCurrent - 1) * Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage")));
+		int finishCount = numberPageCurrent * Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage"));
+		if (finishCount > listProductsFilter.size()) {
+			finishCount = listProductsFilter.size();
+		}
+		return new Point(initCount, finishCount);
+	}
+	
+	public ArrayList<Product> readProductsFiltersForPage(int numberPageCurrent) {
+		ArrayList<Product> listProductsResult = new ArrayList<>();
+		Point point = getPointProductsForPage(numberPageCurrent);
+		for (int i = (int)point.getX(); i < (int)point.getY(); i++) {
+			ArrayList<String> listImagesProduct = new ArrayList<>();
+			for (String images : listProducts.get(i).getListImages()) {
+				listImagesProduct.add(images);
+			}
+			listProductsResult.add(Shop.createProduct(listProducts.get(i).getId(), listProducts.get(i).getName(), listProducts.get(i).getPrice(), null, listProducts.get(i).getQuantumAvailable(), listProducts.get(i).getCategory(), listProducts.get(i).getDiscont(), listImagesProduct));
+		}
+		return listProductsResult;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public DescriptionShop getDescriptionShop() {
+		return descriptionShop;
 	}
 
 }

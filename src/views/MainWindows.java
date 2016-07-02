@@ -2,121 +2,99 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.Point;
 import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
-import models.dao.Category;
-import models.dao.ToolTipConstants;
+import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
+
 import models.entity.Product;
 import controller.Action;
+import controller.Constants;
 import controller.Controller;
 
 public class MainWindows extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private PanelOpcionesAdministrador opcionesAdministrador;
+	private PanelOptionsAdministrador opcionesAdministrador;
 	private PanelTabla panelTable;
-	// private Controller controller;
-	private JTextField textFiledSearchByName;
-	private JSpinner spinnerSearchByPriceMin;
-	private JSpinner spinneSearchByPriceMax;
-	private JComboBox<Category> comboBoxSearchByCategory;
+	private JPanel welcomePanel;
+	private JPanel panelLogo;
+	private JLabel labelLogo;
+	private JLabel labelWelcome;
+	private ToolBarMain toolBarMain;
 
 	public MainWindows(Controller controller) {
-		// this.controller = controller;
-		setIconImage(new ImageIcon(".\\src\\img\\shop.png").getImage());
-		setSize(1300, 500);
+		setIconImage(new ImageIcon(getClass().getResource(Constants.ICON_MAIN)).getImage());
+		setSize(Constants.WIDTH_MAIN_ADMIN, Constants.HEIGHT_MAIN_ADMIN);
 		setTitle("Shop Admin");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
+		
+		welcomePanel = new JPanel();
+		add(welcomePanel, BorderLayout.CENTER);
+		
+		labelWelcome = new JLabel(new ImageIcon(getClass().getResource(Constants.IMAGE_WELCOME)));
+		labelWelcome.setText("Glad You're Here :D");
+		labelWelcome.setHorizontalTextPosition(SwingConstants.CENTER);
+		labelWelcome.setVerticalTextPosition(SwingConstants.BOTTOM);
+		labelWelcome.setFont(Constants.FONT_TABLE.deriveFont((float)50));
+		labelWelcome.setForeground(Color.BLACK);
+		welcomePanel.setBackground(Color.WHITE);
+		welcomePanel.add(labelWelcome, BorderLayout.CENTER);
+		
+		panelLogo = new JPanel(new BorderLayout());
+		panelLogo.setBackground(Constants.COLOR_DARK_BLUE_GENERAL);
+		add(panelLogo, BorderLayout.PAGE_START);
+		
+		labelLogo = new JLabel();
+		labelLogo.setIcon(new ImageIcon(getClass().getResource(Constants.IMAGE_LOGO)));
+		labelLogo.setText("Online Store");
+		labelLogo.setFont(Constants.FONT_TABLE.deriveFont((float)30));
+		labelLogo.setForeground(Color.BLACK);
+		labelLogo.setHorizontalTextPosition(SwingConstants.RIGHT);
+		labelLogo.setVerticalTextPosition(SwingConstants.CENTER);
+		panelLogo.add(labelLogo, BorderLayout.LINE_START);
 
-		setJMenuBar(new MenuBar(controller));
-
-		showPanelOpcionesAdministrador(controller);
-
-		JPanel panelSouth = new JPanel(new GridLayout(1, 2));
-
-		// panel de agregar producto
-		JPanel panelAddProduct = new JPanel(new FlowLayout());
-		panelAddProduct.setBackground(Color.decode("#40658A"));
-
-		JButton buttonAddProduct = new JButton("Add Product");
-		buttonAddProduct.setBackground(Color.decode("#5B7729"));
-		buttonAddProduct.setForeground(Color.WHITE);
-		buttonAddProduct.setToolTipText(ToolTipConstants.ADD_NEW_PRODUCT.toString());
-		buttonAddProduct.addActionListener(controller);
-		buttonAddProduct.setActionCommand(Action.BUTTON_ADD_PRODUCT.name());
-		buttonAddProduct.setFocusPainted(false);
-		panelAddProduct.add(buttonAddProduct);
-
-		panelSouth.add(panelAddProduct);
-
-		// panel para filtrar
-		JPanel panelFilter = new JPanel(new GridLayout(1, 9));
-		panelFilter.setBackground(Color.decode("#40658A"));
-
-		JLabel name = new JLabel("Filter: Name:");
-		name.setForeground(Color.WHITE);
-		panelFilter.add(name);
-
-		textFiledSearchByName = new JTextField();
-		panelFilter.add(textFiledSearchByName);
-
-		JLabel price = new JLabel("Price:");
-		price.setForeground(Color.WHITE);
-		panelFilter.add(price);
-
-		spinnerSearchByPriceMin = new JSpinner(new SpinnerNumberModel(50.0, 50.0, Double.MAX_VALUE, 50.0));
-		panelFilter.add(spinnerSearchByPriceMin);
-
-		spinneSearchByPriceMax = new JSpinner(new SpinnerNumberModel(5000.0, 50.0, Double.MAX_VALUE, 50.0));
-		panelFilter.add(spinneSearchByPriceMax);
-
-		JLabel category = new JLabel("Category:");
-		category.setForeground(Color.WHITE);
-		panelFilter.add(category);
-
-		comboBoxSearchByCategory = new JComboBox<Category>(Category.values());
-		panelFilter.add(comboBoxSearchByCategory);
-
-		JButton buttonFilter = new JButton("Filter");
-		buttonFilter.setToolTipText("Search product");
-		buttonFilter.setFocusPainted(false);
-		buttonFilter.setBackground(Color.decode("#40658A"));
-		buttonFilter.setForeground(Color.WHITE);
-		buttonFilter.addActionListener(controller);
-		buttonFilter.setActionCommand(Action.BUTTON_FILTER.name());
-		panelFilter.add(buttonFilter);
-
-		JButton buttonSeeAlls = new JButton("Alls");
-		buttonSeeAlls.setFocusPainted(false);
-		buttonSeeAlls.setToolTipText("Show all products");
-		buttonSeeAlls.setBackground(Color.decode("#5B7729"));
-		buttonSeeAlls.setForeground(Color.WHITE);
-		buttonSeeAlls.addActionListener(controller);
-		buttonSeeAlls.setActionCommand(Action.BUTTON_ALL.name());
-		panelFilter.add(buttonSeeAlls);
-
-		panelSouth.add(panelFilter);
-		add(panelSouth, BorderLayout.PAGE_START);
-
+		JToolBar toolBarManager = new JToolBar();
+		toolBarManager.setFloatable(false);
+		toolBarManager.setBackground(Constants.COLOR_DARK_BLUE_GENERAL);
+		toolBarManager.setBorderPainted(false);
+		
+		JButton buttonStettings = new JButton("Settings");
+		buttonStettings.setBackground(Constants.COLOR_GREEN_GENERAL);
+		buttonStettings.setForeground(Color.WHITE);
+		buttonStettings.setBorderPainted(false);
+		buttonStettings.setFocusPainted(false);
+		buttonStettings.addActionListener(controller);
+		buttonStettings.setActionCommand(Action.SHOW_DIALOG_SETTINGS.name());
+		toolBarManager.add(buttonStettings);
+		
+		JButton buttonExit = new JButton("Exit");
+		buttonExit.setBackground(Constants.COLOR_GREEN_GENERAL);
+		buttonExit.setForeground(Color.WHITE);
+		buttonExit.setBorderPainted(false);
+		buttonExit.setFocusPainted(false);
+		buttonExit.addActionListener(controller);
+		buttonExit.setActionCommand(Action.EXIT.name());
+		toolBarManager.add(buttonExit);
+		panelLogo.add(toolBarManager, BorderLayout.LINE_END);
+		
+		toolBarMain = new ToolBarMain(controller);
+		add(toolBarMain, BorderLayout.LINE_START);
+		
 		panelTable = new PanelTabla(controller);
-		add(panelTable, BorderLayout.CENTER);
-
+		panelTable.setVisible(false);
 	}
 
-	public void showPanelOpcionesAdministrador(Controller controller) {
-		opcionesAdministrador = new PanelOpcionesAdministrador(controller);
+	public void showPanelOptionsAdministrador(Controller controller) {
+		opcionesAdministrador = new PanelOptionsAdministrador(controller);
 		add(opcionesAdministrador, BorderLayout.LINE_START);
 	}
 
@@ -127,12 +105,12 @@ public class MainWindows extends JFrame {
 	public void addProductToTable(Product product) {
 		panelTable.addProductToTable(product);
 	}
-
-	public void updateTable(ArrayList<Product> listProducts) {
-		panelTable.updateTable(listProducts);
+	
+	public void updateTable(ArrayList<Product> listProducts, Point point) {
+		panelTable.updateTable(listProducts, point);
 	}
 
-	public void advanceForPage(ArrayList<Product> listProducts, Action action, int maxNumberPage) {
+	public void advanceForPage(ArrayList<Product> listProducts, Point point, Action action, int maxNumberPage) {
 		switch (Action.valueOf(action.name())) {
 		case BUTTON_LAST_PAGE_BACK:
 			panelTable.advanceLastBackPage(maxNumberPage);
@@ -149,7 +127,18 @@ public class MainWindows extends JFrame {
 		default:
 			break;
 		}
-		updateTable(listProducts);
+		updateTable(listProducts, point);
+	}
+	
+	public void setVisibleTable(){
+		welcomePanel.setVisible(false);
+		add(panelTable, BorderLayout.CENTER);
+		panelTable.setVisible(true);
+	}
+	
+	public void setInvisibleTable(){
+//		welcomePanel.setVisible(false);
+		panelTable.setVisible(false);
 	}
 
 	public void disableButtonsControl() {
@@ -172,20 +161,8 @@ public class MainWindows extends JFrame {
 		return panelTable.getNumberPageCurrent();
 	}
 
-	public String getTextFiledSearchByName() {
-		return textFiledSearchByName.getText();
-	}
-
-	public double getSpinnerSearchByPriceMin() {
-		return (double) spinnerSearchByPriceMin.getValue();
-	}
-
-	public double getSpinneSearchByPriceMax() {
-		return (double) spinneSearchByPriceMax.getValue();
-	}
-
-	public Category getComboBoxSearchByCategory() {
-		return (Category) comboBoxSearchByCategory.getSelectedItem();
+	public Object[] getListValuesForFilter() {
+		return panelTable.getListValuesForFilter();
 	}
 
 	public int getNumberRowsCurrent() {

@@ -20,8 +20,7 @@ public class DescriptionProduct {
 	
 
 	public String toString() {
-		return "Brand:" + brand +"\n"+ "Model:" + model +"\n"+ "MonthsWarranty:" + monthsWarranty+"\n"
-				+ "Size:" + size +"\n"+ "YearOfCreation:" + yearOfCreation ;
+		return "Brand:" + brand +"\n"+ "Model:" + model +"\n"+ "MonthsWarranty:" + monthsWarranty + "\n" + "Size:" + size +"\n"+ "YearOfCreation:" + yearOfCreation;
 	}
 
 }

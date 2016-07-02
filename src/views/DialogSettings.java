@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import org.jdesktop.swingx.prompt.PromptSupport;
 import persistence.ManagerPersistence;
 import controller.Action;
 import controller.Controller;
@@ -19,7 +18,6 @@ public class DialogSettings extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField textFieldNumberProducts;
-	private ButtonGroup buttonGroup;
 	private JRadioButton radioButtonFolder;
 	private JRadioButton radioButtonFile;
 	private JRadioButton radioButtonQuestion;
@@ -33,21 +31,24 @@ public class DialogSettings extends JDialog {
 		setLayout(new GridLayout(3, 2));
 
 		JPanel panelSettingsNumberProducts = new JPanel(new GridLayout(1, 2));
-		textFieldNumberProducts = new JTextField();
 		panelSettingsNumberProducts.add(new JLabel("Number Products for Page (default: 5)"));
-		PromptSupport.setPrompt("current: " + ManagerPersistence.readProperty("numberDataForPage"),
-				textFieldNumberProducts);
-		panelSettingsNumberProducts.add(textFieldNumberProducts);
+//		PromptSupport.setPrompt("current: " + ManagerPersistence.readProperty("numberDataForPage"), textFieldNumberProducts);
+		panelSettingsNumberProducts.add(textFieldNumberProducts = new JTextField());
 		add(panelSettingsNumberProducts);
 
 		JPanel panelSettingsImageProduct = new JPanel(new FlowLayout());
-		buttonGroup = new ButtonGroup();
+		
+		ButtonGroup buttonGroup = new ButtonGroup();
+		
 		radioButtonFile = new JRadioButton("For File");
 		buttonGroup.add(radioButtonFile);
+		
 		radioButtonFolder = new JRadioButton("In Folder");
 		buttonGroup.add(radioButtonFolder);
+		
 		radioButtonQuestion = new JRadioButton("Question");
 		buttonGroup.add(radioButtonQuestion);
+		
 		panelSettingsImageProduct.add(new JLabel("Choose a Image of Product"), FlowLayout.LEFT);
 		panelSettingsImageProduct.add(radioButtonFile);
 		panelSettingsImageProduct.add(radioButtonFolder);
@@ -55,16 +56,19 @@ public class DialogSettings extends JDialog {
 		add(panelSettingsImageProduct);
 
 		JPanel panelButtons = new JPanel(new FlowLayout());
+		
 		JButton buttonSaveSettings = new JButton("Save");
 		buttonSaveSettings.addActionListener(controller);
 		buttonSaveSettings.setActionCommand(Action.BUTTON_SAVE_SETTINGS.name());
 		panelButtons.add(buttonSaveSettings);
+		
 		JButton buttonCancelSettings = new JButton("Cancel");
 		buttonCancelSettings.addActionListener(controller);
 		buttonCancelSettings.setActionCommand(Action.BUTTON_CANCEL_SETTINGS.name());
 		panelButtons.add(buttonCancelSettings);
-		add(panelButtons);
 
+		add(panelButtons);
+		
 		selectValueRadioButton();
 	}
 

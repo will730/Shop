@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import controller.Constants;
 import controller.Controller;
 
 public class MainWindowUser extends JFrame {
@@ -14,8 +15,8 @@ public class MainWindowUser extends JFrame {
 	private PanelCenterUser panelCenterUser;
 
 	public MainWindowUser(Controller controller) {
-		setIconImage(new ImageIcon(".\\src\\img\\shop.png").getImage());
-		setSize(1300, 500);
+		setIconImage(new ImageIcon(Constants.ICON_MAIN).getImage());
+		setSize(Constants.WIDTH_MAIN_USER, Constants.HEIGHT_MAIN_USER);
 		setTitle("Shop Admin");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
