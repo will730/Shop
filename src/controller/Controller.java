@@ -2,23 +2,24 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import persistence.ManagerPersistence;
+
 import Exceptions.IdProductInexistExeption;
 import models.dao.Category;
 import models.dao.Shop;
 import models.entity.Product;
+import persistence.ManagerPersistence;
+import views.CartDialog;
 import views.DialogBio;
 import views.DialogCreateProduct;
 import views.DialogDescriptionProduct;
@@ -26,10 +27,13 @@ import views.DialogFileChooser;
 import views.DialogSettings;
 import views.MainWindowUser;
 import views.MainWindows;
+import views.PanelTabla;
 import views.login.DialogUserOrAdmin;
 
-public class Controller implements ActionListener, MouseListener, KeyListener {
+public class Controller implements ActionListener, MouseListener {
 
+	private CartDialog cartDialog;
+	private PanelTabla panelTabla;
 	private MainWindows mainWindows;
 	private MainWindowUser mainWindowUser;
 	private DialogCreateProduct dialogCreateProduct;
@@ -50,6 +54,8 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 		dialogFileChooser = new DialogFileChooser(this, mainWindows);
 		dialogBio = new DialogBio(this, mainWindows);
 		dialogDescriptionProduct = new DialogDescriptionProduct(this, mainWindows);
+		panelTabla = new PanelTabla(this);
+		cartDialog = new CartDialog(this);
 		shop = new Shop(1, "Shop", null);
 		MAX_NUMBER_PAGES = 1;
 		dataInit();
@@ -195,10 +201,27 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 			mainWindows.setInvisibleTable();
 			break;
 		case BUTTON_PRINT:
+			printTable();
 			break;
 		case BUTTON_PAPERS:
 			break;
-		default:
+		case BUTTON_BIO_PRODUCT:
+			break;
+		case BUTTON_EDIT_PRODUCT:
+			break;
+		case BUTTON_REMOVE_PRODUCT:
+			break;
+		case BUTTON_SEARCH_BY_CATEGORY:
+			break;
+		case BUTTON_SEARCH_BY_NAME:
+			break;
+		case BUTTON_SEARCH_BY_PRICE:
+			break;
+		case CLOSE_CART_DIALOG:
+			cartDialog.setVisible(false);
+			break;
+		case OPEN_CART_DIALOG:
+			cartDialog.setVisible(true);
 			break;
 		}
 	}
@@ -479,34 +502,21 @@ public class Controller implements ActionListener, MouseListener, KeyListener {
 		}
 	}
 
+	public void printTable(){
+		panelTabla.print();
+	}
+	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// Se activa cuando se suelta el el boton del mouse
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// Se activa cuando pasa el puntero entra al componente
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// Se activa cuando pasa el puntero sale del componente
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// Se activa cuando se presiona y suelta una tecla
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// Se activa cuando se presiona una tecla
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// Se activa cuando se suelta una tecla
-	}
 
 }

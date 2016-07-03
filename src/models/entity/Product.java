@@ -1,6 +1,7 @@
 package models.entity;
 
 import java.util.ArrayList;
+
 import models.dao.Category;
 import models.dao.DescriptionProduct;
 
@@ -89,6 +90,11 @@ public class Product {
 
 	public Object[] getArrayContent() {
 		return new Object[] { getId(), getName(), getPrice() + "$", getQuantumAvailable(), getCategory(),
+				getDiscont() + "%" };
+	}
+
+	public Object[] getArrayContentForCart() {
+		return new Object[] { getName(), getPrice() + "$", getQuantumAvailable(), getCategory(),
 				getDiscont() + "%" };
 	}
 

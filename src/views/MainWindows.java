@@ -21,7 +21,7 @@ import controller.Controller;
 public class MainWindows extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private PanelOptionsAdministrador opcionesAdministrador;
+//	private PanelOptionsAdministrador opcionesAdministrador;
 	private PanelTabla panelTable;
 	private JPanel welcomePanel;
 	private JPanel panelLogo;
@@ -93,14 +93,14 @@ public class MainWindows extends JFrame {
 		panelTable.setVisible(false);
 	}
 
-	public void showPanelOptionsAdministrador(Controller controller) {
-		opcionesAdministrador = new PanelOptionsAdministrador(controller);
-		add(opcionesAdministrador, BorderLayout.LINE_START);
-	}
+//	public void showPanelOptionsAdministrador(Controller controller) {
+//		opcionesAdministrador = new PanelOptionsAdministrador(controller);-----> esto ya no lo usamos por que se volvio la 
+//		add(opcionesAdministrador, BorderLayout.LINE_START);-------------------> ToolBarMain
+//	}
 
-	public void showPanelAddProduct() {
-
-	}
+//	public void showPanelAddProduct() {
+//
+//	}
 
 	public void addProductToTable(Product product) {
 		panelTable.addProductToTable(product);
@@ -137,7 +137,7 @@ public class MainWindows extends JFrame {
 	}
 	
 	public void setInvisibleTable(){
-//		welcomePanel.setVisible(false);
+//		welcomePanel.setVisible(false); -----> Por el momento esto en comentarios pero despues si sera util
 		panelTable.setVisible(false);
 	}
 
