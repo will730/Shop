@@ -72,7 +72,7 @@ public class DialogCreateProduct extends JDialog{
 			public void filesDropped(File[] files) {
 				listImages.clear();
 				for (int i = 0; i < files.length; i++) {
-					listImages.add(files[i].getAbsolutePath());
+					listImages.add(0, files[i].getAbsolutePath());
 				}
 				labelImage.setText("");
 				labelImage.setIcon(new ImageIcon(files[0].getAbsolutePath()));
@@ -188,7 +188,7 @@ public class DialogCreateProduct extends JDialog{
 	
 	public Product getProduct() {
 		if (listImages.size() == 0) {
-			listImages.add((new File(getClass().getResource(Constants.ICON_NO_IMAME).getFile())).getAbsolutePath());
+			listImages.add(0, (new File(getClass().getResource(Constants.ICON_NO_IMAME).getFile())).getAbsolutePath());
 		}
 		return Shop.createProduct(Integer.parseInt(textFieldId.getText()), textFieldName.getText(), (double)spinnerPrice.getValue(), descripcionFinal, (int)spinnerQuantumAvalilable.getValue(), (Category)comboBoxCategory.getSelectedItem(), (double)spinnerDiscont.getValue(), listImages);
 	}
@@ -223,7 +223,7 @@ public class DialogCreateProduct extends JDialog{
 	}
 
 	public void setOneImages(String currentDirectory) {
-		listImages.add(currentDirectory);
+		listImages.add(0, currentDirectory);
 		labelImage.setText("");
 		labelImage.setIcon(new ImageIcon(currentDirectory));
 	}
@@ -231,7 +231,7 @@ public class DialogCreateProduct extends JDialog{
 	public void setListImages(String currentDirectory) {
 		File[] files = new File(currentDirectory).listFiles();
 		for (int i = 0; i < files.length; i++) {
-			listImages.add(files[i].getAbsolutePath());			
+			listImages.add(0, files[i].getAbsolutePath());			
 		}
 		labelImage.setText("");
 		labelImage.setIcon(new ImageIcon(currentDirectory));
