@@ -106,14 +106,18 @@ public class CartTablePanel extends JPanel{
 
         String[] columnas = new String[]{};
 
-        final Class[] tiposColumnas = new Class[]{Object.class, String.class, Object.class, Object.class, Category.class, Object.class, String.class, JButton.class, JButton.class, JButton.class};
+        @SuppressWarnings("rawtypes")
+		final Class[] tiposColumnas = new Class[]{Object.class, String.class, Object.class, Object.class, Category.class, Object.class, String.class, JButton.class, JButton.class, JButton.class};
 
         Object[][] datos = new Object[][]{};
 
         table.setModel(defaultTableModel = new javax.swing.table.DefaultTableModel(datos, columnas) {
-            Class[] tipos = tiposColumnas;
+			private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
+			Class[] tipos = tiposColumnas;
             
-            @Override
+            @SuppressWarnings({ "rawtypes", "unchecked" })
+			@Override
             public Class getColumnClass(int columnIndex) {
                 return tipos[columnIndex];
             }
