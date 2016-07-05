@@ -303,9 +303,9 @@ public class Controller implements ActionListener, MouseListener {
 
 	private void actionButtonSavePath() {
 		if (actionFileChooser.equals(ActionFileChooser.FILTER_FOR_FILE)) {
-			dialogCreateProduct.setImages(dialogFileChooser.getPathName());
+			dialogCreateProduct.setOneImages(dialogFileChooser.getPathName());
 		}else {
-			dialogCreateProduct.setImages(dialogFileChooser.getCurrentDirectory());
+			dialogCreateProduct.setListImages(dialogFileChooser.getCurrentDirectory());
 		}
 		dialogFileChooser.setVisible(false);
 	}

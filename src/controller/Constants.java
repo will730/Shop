@@ -14,6 +14,7 @@ public class Constants {
 	public static final String IMAGE_BACKGROUND_WELCOME = "/img/backgroundAdminOrUser.png";
 	public static final String IMAGE_LOGO_WELCOME = "/img/iconAdminOrUser.PNG";
 	public static final String ICON_MAIN = "/img/shop.png";
+	public static final String ICON_NO_IMAME = "/img/noImage.png";
 	public static final String IMAGE_ADD_PRODUCT = "/img/addProduct.png";
 	public static final String IMAGE_PRODUCTS = "/img/Products.png";
 	public static final String IMAGE_CLIENTS = "/img/Clients.png";
