@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
@@ -175,6 +176,10 @@ public class MainWindows extends JFrame {
 
 	public void setFormatPages(int maxNumberPages) {
 		panelTable.setNumberPages(maxNumberPages);
+	}
+
+	public void getMessageErrorPrice() {
+		JOptionPane.showMessageDialog(this, "The first price can not be higher than second", "Error Price Filter", JOptionPane.WARNING_MESSAGE);
 	}
 
 }

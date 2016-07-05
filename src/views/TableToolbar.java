@@ -91,6 +91,9 @@ public class TableToolbar extends JToolBar{
 	}
 	
 	public Object[] getListValuesForFilter() {
+		if ((double)spinnerSearchByPriceMin.getValue() > (double)spinneSearchByPriceMax.getValue()) {
+			return new Object[] {};
+		}
 		return new Object[] {textFiledSearchByName.getText(), spinnerSearchByPriceMin.getValue(), spinneSearchByPriceMax.getValue(), comboBoxSearchByCategory.getSelectedItem()};
 	}
 }

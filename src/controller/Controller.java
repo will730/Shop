@@ -285,7 +285,12 @@ public class Controller implements ActionListener, MouseListener {
 	private void filterMainWindow(){
 		mainWindows.setNumberPageCurrent(1, MAX_NUMBER_PAGES);
 		mainWindows.disableButtonsControlBack();
-		shop.setListProductsFilter(shop.getListProductsForFilter((String)mainWindows.getListValuesForFilter()[0], (double)mainWindows.getListValuesForFilter()[1], (double)mainWindows.getListValuesForFilter()[2], (Category)mainWindows.getListValuesForFilter()[3]));
+		try {
+			shop.setListProductsFilter(shop.getListProductsForFilter((String)mainWindows.getListValuesForFilter()[0], (double)mainWindows.getListValuesForFilter()[1], (double)mainWindows.getListValuesForFilter()[2], (Category)mainWindows.getListValuesForFilter()[3]));
+		} catch (Exception e) {
+			mainWindows.getMessageErrorPrice();
+			return;
+		}
 		mainWindows.updateTable(shop.getListProductsFilter(), shop.getPointProductsForPage(mainWindows.getNumberPageCurrent()));
 		numberMaxPages(shop.getListProductsFilter());
 		if ((shop.getListProductsFilter().size() > Integer.parseInt(ManagerPersistence.readProperty("numberDataForPage")))) {

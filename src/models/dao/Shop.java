@@ -151,9 +151,10 @@ public class Shop {
 	public ArrayList<Product> getListProductsForFilter(String name, double priceMin, double priceMax, Category category) {
 		ArrayList<Product> listProductsResult = new ArrayList<>();
 		for (Product product : listProducts) {
-			if (product.getName().contains(name) && (product.getPrice() >= priceMin && product.getPrice() <= priceMax) && product.getCategory().equals(category)) {
-//				System.out.println("asd");
-				listProductsResult.add(product);
+			if (product.getName().contains(name) && (product.getPrice() >= priceMin && product.getPrice() <= priceMax)) {
+				if (category.equals(Category.ALL) ||product.getCategory().equals(category)) {
+					listProductsResult.add(product);					
+				}
 			}
 		}
 		return listProductsResult;
