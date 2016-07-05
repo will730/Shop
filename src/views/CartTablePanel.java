@@ -326,5 +326,4 @@ public class CartTablePanel extends JPanel{
 	public void setNumberPages(int maxNumberPages) {
 		labelCountPage.setText(numberPageCurrent + "/" + maxNumberPages);
 	}
-
 }
